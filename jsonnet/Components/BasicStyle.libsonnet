@@ -437,8 +437,21 @@ local newButton(name, type='alphabetic', isDark=false, params={}) =
   reference: {},   // 按钮内的相关引用定义
   globalNames: [], // 引用全局名称列表
 
-  AddBackgroundStyle(): root {
-    [root.name]+: { backgroundStyle: type + 'ButtonBackgroundStyle' },
+  AddBackgroundStyle():
+    local hasBackgroundName = std.objectHas(root.params, 'backgroundStyleName');
+    local hasBackgroundStyle = std.objectHas(root.params, 'backgroundStyle');
+  root {
+    [root.name]+:
+      if hasBackgroundName then
+        assert std.type(root.params.backgroundStyleName) == 'string' : 'backgroundStyleName 必须是字符串，当前为' + root.params.backgroundStyleName;
+        { backgroundStyle: root.params.backgroundStyleName }
+      else
+        { backgroundStyle: root.type + 'ButtonBackgroundStyle' },
+    reference+:
+      if hasBackgroundStyle then
+        assert std.type(root.params.backgroundStyle) == 'object' : 'backgroundStyle 必须是一个对象，当前为' + root.params.backgroundStyle;
+        root.params.backgroundStyle
+      else {}
   },
 
   AddForegroundStyle(newButtonForegroundStyle):
@@ -450,6 +463,7 @@ local newButton(name, type='alphabetic', isDark=false, params={}) =
   root {
     [root.name]+:
       if hasForegroundName then
+        assert std.type(foregroundName) == 'array' : 'foregroundStyleName 必须是数组，当前为' + foregroundName;
         { foregroundStyle: foregroundName }
       else
         { foregroundStyle: [root.name + 'ForegroundStyle'], },
