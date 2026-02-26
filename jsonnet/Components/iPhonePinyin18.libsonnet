@@ -7,10 +7,6 @@ local preedit = import 'Preedit.libsonnet';
 local toolbar = import 'Toolbar.libsonnet';
 local utils = import 'Utils.libsonnet';
 
-local portraitNormalButtonSize = {
-  size: { width: '112.5/1125' },
-};
-
 // 18键布局
 local rows = [
   [
@@ -110,14 +106,15 @@ local newKeyLayout(isDark=false, isPortrait=true) =
   + basicStyle.newSystemButton(
     commonButtons.numericButton.name,
     isDark,
-    { size: { width: '225/1125' } }
+    { size: { width: { percentage: 0.2 } } }
     + commonButtons.numericButton.params
   )
 
   + basicStyle.newAlphabeticButton(
     commonButtons.commaButton.name,
     isDark,
-    portraitNormalButtonSize + commonButtons.commaButton.params + basicStyle.hintStyleSize
+    { size: { width: { percentage: 0.12 } } }
+    + commonButtons.commaButton.params + basicStyle.hintStyleSize
   )
   + basicStyle.newAlphabeticButton(
     commonButtons.spaceButton.name,
@@ -132,15 +129,14 @@ local newKeyLayout(isDark=false, isPortrait=true) =
   + basicStyle.newSystemButton(
     commonButtons.alphabeticButton.name,
     isDark,
-    portraitNormalButtonSize
+    { size: { width: { percentage: 0.12 } } }
     + commonButtons.alphabeticButton.params
   )
   + basicStyle.newColorButton(
     commonButtons.enterButton.name,
     isDark,
-    {
-      size: { width: '250/1125' },
-    } + commonButtons.enterButton.params
+    { size: { width: { percentage: 0.22 } } }
+    + commonButtons.enterButton.params
   )
 ;
 
