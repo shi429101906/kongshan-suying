@@ -300,6 +300,10 @@ local calcMainTextCenter(swipeUpTextCenter, swipeDownTextCenter) =
     }
   };
 
+// 某些布局的数字键被用于打字，所以数字需要用 action.symbol 的方式直接上屏
+local numericActionNeedSymbol(layout) =
+  std.member(['9', 'bopomofo'],layout);
+
 {
   extractProperty: extractProperty,
   extractProperties: extractProperties,
@@ -321,4 +325,5 @@ local calcMainTextCenter(swipeUpTextCenter, swipeDownTextCenter) =
   newRimeOptionChangedNotification: newRimeOptionChangedNotification,
   repalceCharacterToSymbolRecursive: repalceCharacterToSymbolRecursive,
   calcMainTextCenter: calcMainTextCenter,
+  numericActionNeedSymbol: numericActionNeedSymbol,
 }

@@ -142,7 +142,12 @@ local settings = import '../Settings.libsonnet';
   hyphenButton: {
     name: 'hyphenButton',
     params: {
-      action: { character: '-' },
+      action:
+        // 注音布局的数字键盘中，此符号被注音方案占用，所以用 symbol 直接上屏
+        if settings.keyboardLayout=='bopomofo' then
+          { symbol: '-' }
+        else
+          { character: '-' },
     },
   },
   // 斜杠
