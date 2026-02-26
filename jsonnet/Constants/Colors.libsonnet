@@ -95,20 +95,30 @@ local accentColors = [
     background: '#2e67f8',
     foreground: '#ffffff',
   },
+  { // purple
+    background: '#7A72B8',
+    foreground: '#ffffff',
+  },
 ];
 
 local colorButtonBackgroundColor = if settings.accentColor == 0 then systemButtonBackgroundColor else
   local color = accentColors[settings.accentColor - 1].background;
-  {
-    light: color,
-    dark: color,
-  };
+  if std.type(color) == 'object' && std.objectHas(color, 'light') && std.objectHas(color, 'dark') then
+    color
+  else
+    {
+      light: color,
+      dark: color,
+    };
 local colorButtonForegroundColor = if settings.accentColor == 0 then systemButtonForegroundColor else
   local color = accentColors[settings.accentColor - 1].foreground;
-  {
-    light: color,
-    dark: color,
-  };
+  if std.type(color) == 'object' && std.objectHas(color, 'light') && std.objectHas(color, 'dark') then
+    color
+  else
+    {
+      light: color,
+      dark: color,
+    };
 
 local colorButtonHighlightedBackgroundColor = systemButtonHighlightedBackgroundColor;
 local colorButtonHighlightedForegroundColor = labelColor.primary;
