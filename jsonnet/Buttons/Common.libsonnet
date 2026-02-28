@@ -158,6 +158,14 @@ local settings = import '../Settings.libsonnet';
     },
   },
 
+  iOSNextKeyboardButton: {
+    name: 'iOSNextKeyboardButton',
+    params: {
+      action: 'nextKeyboard',
+      systemImageName: 'globe',
+    },
+  },
+
   numericButton: {
     name: 'numericButton',
     params: {
