@@ -100,10 +100,9 @@ local processButtonParams(keyboardType, params) =
     params;
 
 local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chinese) =
-  local rowHeight = if isPortrait then commonButtons.rowHeight.portrait else commonButtons.rowHeight.landscape;
   local rows = getRows(keyboardType);
   {
-    keyboardHeight: rowHeight * std.length(rows),
+    keyboardHeight: if isPortrait then commonButtons.keyboardHeight.portrait else commonButtons.keyboardHeight.landscape,
     keyboardStyle: utils.newBackgroundStyle(style=basicStyle.keyboardBackgroundStyleName),
   }
   + utils.newRowKeyboardLayout(rows)
@@ -224,26 +223,15 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
   )
 ;
 
-local backgroundInsets = if !settings.iPad then
-{
-  portrait: { top: 5, left: 3, bottom: 5, right: 3 },
-  landscape: { top: 3, left: 3, bottom: 3, right: 3 },
-}
-else
-{
-  portrait: { top: 3, left: 3, bottom: 3, right: 3 },
-  landscape: { top: 4, left: 6, bottom: 4, right: 6 },
-};
-
 {
   // 枚举键盘类型
   KeyboardType:: KeyboardType,
 
   // keyboardType=Temp26Key 表示这个26键布局是临时使用的，比如当前是拼音17键布局，但是想使用雾凇方案中的 V 模式
   // 只在非26键布局下额外生成一个26键布局，action 使用 character，把动作发给 Rime 处理
-  // 和主键盘的区别在于“中英切换键”改为“返回”键
+  // 和主键盘的区别在于"中英切换键"改为"返回"键
   new(isDark, isPortrait, keyboardType=KeyboardType.Chinese):
-	local insets = if isPortrait then backgroundInsets.portrait else backgroundInsets.landscape;
+	local insets = if isPortrait then commonButtons.backgroundInsets.portrait else commonButtons.backgroundInsets.landscape;
 
     local extraParams = {
       insets: insets,

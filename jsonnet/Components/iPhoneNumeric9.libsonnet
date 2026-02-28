@@ -139,9 +139,8 @@ local totalKeyboardLayout(isPortrait=false) =
 
 
 local newKeyLayout(isDark=false, isPortrait=false, extraParams={}) =
-  local rowHeight = if isPortrait then commonButtons.rowHeight.portrait else commonButtons.rowHeight.landscape;
   {
-    keyboardHeight: rowHeight * 4,
+    keyboardHeight: if isPortrait then commonButtons.keyboardHeight.portrait else commonButtons.keyboardHeight.landscape,
     keyboardStyle: utils.newBackgroundStyle(style=basicStyle.keyboardBackgroundStyleName),
   }
   + totalKeyboardLayout(isPortrait)

@@ -86,9 +86,8 @@ local getButtonSize(name) =
 
 
 local newKeyLayout(isDark=false, isPortrait=false, extraParams={}) =
-  local rowHeight = if isPortrait then commonButtons.rowHeight.portrait else commonButtons.rowHeight.landscape;
   {
-    keyboardHeight: rowHeight * 4,
+    keyboardHeight: if isPortrait then commonButtons.keyboardHeight.portrait else commonButtons.keyboardHeight.landscape,
     keyboardStyle: utils.newBackgroundStyle(style=basicStyle.keyboardBackgroundStyleName),
   }
   + utils.newRowKeyboardLayout(numericRows)
@@ -169,20 +168,9 @@ local newKeyLayout(isDark=false, isPortrait=false, extraParams={}) =
       commonButtons.gotoPrimaryKeyboardButton.params + { size: { width: '225/1125' } }
     ));
 
-local backgroundInsets = if !settings.iPad then
-{
-  portrait: { top: 5, left: 3, bottom: 5, right: 3 },
-  landscape: { top: 3, left: 3, bottom: 3, right: 3 },
-}
-else
-{
-  portrait: { top: 3, left: 3, bottom: 3, right: 3 },
-  landscape: { top: 4, left: 6, bottom: 4, right: 6 },
-};
-
 {
   new(isDark, isPortrait):
-    local insets = if isPortrait then backgroundInsets.portrait else backgroundInsets.landscape;
+    local insets = if isPortrait then commonButtons.backgroundInsets.portrait else commonButtons.backgroundInsets.landscape;
 
     local extraParams = {
       insets: insets,

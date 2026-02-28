@@ -15,16 +15,28 @@ local settings = import '../Settings.libsonnet';
 {
   local root = self,
 
-  // 每行高度
-  rowHeight: if !settings.iPad then
+  // 键盘高度（不含工具栏）
+  keyboardHeight: if !settings.iPad then
     {
-      portrait: 54,
-      landscape: 40,
+      portrait: 216,  // 54 * 4
+      landscape: 160,  // 40 * 4
     }
     else
     {
-      portrait: 64,
-      landscape: 86,
+      portrait: 311,  // 64 * 4 + 55
+      landscape: 414,  // 86 * 4 + 70
+    },
+
+  // 按键背景内边距
+  backgroundInsets: if !settings.iPad then
+    {
+      portrait: { top: 5, left: 3, bottom: 5, right: 3 },
+      landscape: { top: 3, left: 3, bottom: 3, right: 3 },
+    }
+    else
+    {
+      portrait: { top: 3, left: 3, bottom: 3, right: 3 },
+      landscape: { top: 4, left: 6, bottom: 4, right: 6 },
     },
 
   // 特殊功能键

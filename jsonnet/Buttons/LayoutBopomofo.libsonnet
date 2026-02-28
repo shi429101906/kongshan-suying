@@ -14,18 +14,6 @@ local settings = import '../Settings.libsonnet';
 {
   local root = self,
 
-  // 每行高度
-  rowHeight: if !settings.iPad then
-    {
-      portrait: 43.2,
-      landscape: 32,
-    }
-    else
-    {
-      portrait: 51.2,
-      landscape: 68.8,
-    },
-
   // ===== 第一行（數字鍵）：1=ㄅ 2=ㄉ 3=ˇ 4=ˋ 5=ㄓ 6=ˊ 7=˙ 8=ㄚ 9=ㄞ 0=ㄢ -=ㄦ =====
   bpmfOneButton: {
     name: 'bpmfOneButton',

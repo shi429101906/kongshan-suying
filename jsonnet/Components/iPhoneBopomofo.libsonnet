@@ -108,10 +108,9 @@ local getAlphabeticButtonSize(name) =
 
 
 local newKeyLayout(isDark=false, isPortrait=true) =
-  local rowHeight = if isPortrait then buttons.rowHeight.portrait else buttons.rowHeight.landscape;
   local rows = getRows;
   {
-    keyboardHeight: rowHeight * std.length(rows),
+    keyboardHeight: if isPortrait then commonButtons.keyboardHeight.portrait else commonButtons.keyboardHeight.landscape,
     keyboardStyle: utils.newBackgroundStyle(style=basicStyle.keyboardBackgroundStyleName),
   }
   + utils.newRowKeyboardLayout(rows)
