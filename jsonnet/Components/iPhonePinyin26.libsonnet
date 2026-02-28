@@ -11,8 +11,15 @@ local portraitNormalButtonSize = {
   size: { width: '112.5/1125' },
 };
 
+// 枚举键盘类型
+local KeyboardType = {
+  Chinese: 0,
+  English: 1,
+  Temp26Key: 2,
+};
+
 // 标准26键布局
-local getRows(isAlphabetic, isForTempUse) = [
+local getRows(keyboardType) = [
   [
     buttons.qButton,
     buttons.wButton,
@@ -51,8 +58,8 @@ local getRows(isAlphabetic, isForTempUse) = [
     commonButtons.numericButton,
     commonButtons.commaButton,
     commonButtons.spaceButton,
-    if isAlphabetic then commonButtons.pinyinButton
-    else if isForTempUse then commonButtons.goBackButton
+    if keyboardType == KeyboardType.English then commonButtons.pinyinButton
+    else if keyboardType == KeyboardType.Temp26Key then commonButtons.goBackButton
     else commonButtons.alphabeticButton,
     commonButtons.enterButton,
   ],
@@ -85,16 +92,16 @@ local getAlphabeticButtonSize(name) =
 //    处理方式为 params = replaceCharacterToSymbolRecursive(params)
 // 2. 将 params 中的 whenAlphabetic 合并到 params
 //    处理方式为 params = std.objectRemoveKey(params + std.get(params, 'whenAlphabetic', default={}), 'whenAlphabetic') 的内容
-local processButtonParams(isAlphabetic, params) =
-  if isAlphabetic then
+local processButtonParams(keyboardType, params) =
+  if keyboardType == KeyboardType.English then
     local paramsWithSymbol = utils.replaceCharacterToSymbolRecursive(params);
     utils.deepMerge(paramsWithSymbol, std.get(paramsWithSymbol, 'whenAlphabetic', default={}))
   else
     params;
 
-local newKeyLayout(isDark=false, isPortrait=true, isAlphabetic=false, isForTempUse=false) =
+local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chinese) =
   local rowHeight = if isPortrait then commonButtons.rowHeight.portrait else commonButtons.rowHeight.landscape;
-  local rows = getRows(isAlphabetic, isForTempUse);
+  local rows = getRows(keyboardType);
   {
     keyboardHeight: rowHeight * std.length(rows),
     keyboardStyle: utils.newBackgroundStyle(style=basicStyle.keyboardBackgroundStyleName),
@@ -108,9 +115,9 @@ local newKeyLayout(isDark=false, isPortrait=true, isAlphabetic=false, isForTempU
         button.name,
         isDark,
         getAlphabeticButtonSize(button.name) +
-        processButtonParams(isAlphabetic, button.params) + basicStyle.hintStyleSize + basicStyle.textCenterWhenShowSwipeText +
+        processButtonParams(keyboardType, button.params) + basicStyle.hintStyleSize + basicStyle.textCenterWhenShowSwipeText +
         (
-          if !isAlphabetic && settings.uppercaseForChinese then
+          if keyboardType != KeyboardType.English && settings.uppercaseForChinese then
             basicStyle.newAlphabeticButtonUppercaseForegroundStyle(isDark, button.params) + basicStyle.getKeyboardActionText(button.params.uppercased)
           else {}
         )
@@ -132,7 +139,7 @@ local newKeyLayout(isDark=false, isPortrait=true, isAlphabetic=false, isForTempU
           { width: '151/168.75', alignment: 'left' },
       }
     )
-    + processButtonParams(isAlphabetic, commonButtons.shiftButton.params)
+    + processButtonParams(keyboardType, commonButtons.shiftButton.params)
   )
 
   + basicStyle.newSystemButton(
@@ -151,7 +158,7 @@ local newKeyLayout(isDark=false, isPortrait=true, isAlphabetic=false, isForTempU
           { width: '151/168.75', alignment: 'right' },
       }
     )
-    + processButtonParams(isAlphabetic, commonButtons.backspaceButton.params),
+    + processButtonParams(keyboardType, commonButtons.backspaceButton.params),
   )
 
   // Fourth Row
@@ -159,34 +166,41 @@ local newKeyLayout(isDark=false, isPortrait=true, isAlphabetic=false, isForTempU
     commonButtons.numericButton.name,
     isDark,
     { size: { width: '225/1125' } }
-    + processButtonParams(isAlphabetic, commonButtons.numericButton.params)
+    + processButtonParams(keyboardType, commonButtons.numericButton.params)
   )
 
   + basicStyle.newAlphabeticButton(
     commonButtons.commaButton.name,
     isDark,
-    portraitNormalButtonSize + processButtonParams(isAlphabetic, commonButtons.commaButton.params) + basicStyle.hintStyleSize
+    portraitNormalButtonSize + processButtonParams(keyboardType, commonButtons.commaButton.params) + basicStyle.hintStyleSize
   )
   + basicStyle.newAlphabeticButton(
     commonButtons.spaceButton.name,
     isDark,
     {
       foregroundStyleName: basicStyle.spaceButtonForegroundStyle,
-      foregroundStyle: basicStyle.newSpaceButtonRimeSchemaForegroundStyle(if isAlphabetic then 'English' else '$rimeSchemaName', isDark),
+      foregroundStyle: basicStyle.newSpaceButtonRimeSchemaForegroundStyle(
+		if keyboardType == KeyboardType.English then
+		  'English'
+		else if keyboardType == KeyboardType.Temp26Key then
+		  '临时中文'
+		else
+		  '$rimeSchemaName',
+		isDark),
     }
-    + processButtonParams(isAlphabetic, commonButtons.spaceButton.params),
+    + processButtonParams(keyboardType, commonButtons.spaceButton.params),
     needHint=false,
   )
   +
   (
-    if isAlphabetic then
+    if keyboardType == KeyboardType.English then
       basicStyle.newSystemButton(
         commonButtons.pinyinButton.name,
         isDark,
         portraitNormalButtonSize
-        + processButtonParams(isAlphabetic, commonButtons.pinyinButton.params)
+        + processButtonParams(keyboardType, commonButtons.pinyinButton.params)
       )
-    else if isForTempUse then
+    else if keyboardType == KeyboardType.Temp26Key then
       basicStyle.newSystemButton(
         commonButtons.goBackButton.name,
         isDark,
@@ -206,7 +220,7 @@ local newKeyLayout(isDark=false, isPortrait=true, isAlphabetic=false, isForTempU
     isDark,
     {
       size: { width: '250/1125' },
-    } + processButtonParams(isAlphabetic, commonButtons.enterButton.params)
+    } + processButtonParams(keyboardType, commonButtons.enterButton.params)
   )
 ;
 
@@ -222,10 +236,13 @@ else
 };
 
 {
-  // isForTempUse 表示这个26键布局是临时使用的，比如当前是拼音17键布局，但是想使用雾凇方案中的 V 模式
+  // 枚举键盘类型
+  KeyboardType:: KeyboardType,
+
+  // keyboardType=Temp26Key 表示这个26键布局是临时使用的，比如当前是拼音17键布局，但是想使用雾凇方案中的 V 模式
   // 只在非26键布局下额外生成一个26键布局，action 使用 character，把动作发给 Rime 处理
   // 和主键盘的区别在于“中英切换键”改为“返回”键
-  new(isDark, isPortrait, isAlphabetic=false, isForTempUse=false):
+  new(isDark, isPortrait, keyboardType=KeyboardType.Chinese):
 	local insets = if isPortrait then backgroundInsets.portrait else backgroundInsets.landscape;
 
     local extraParams = {
@@ -242,7 +259,7 @@ else
     + basicStyle.newLongPressSymbolsBackgroundStyle(isDark, extraParams)
     + basicStyle.newLongPressSymbolsSelectedBackgroundStyle(isDark, extraParams)
     + basicStyle.newButtonAnimation()
-    + newKeyLayout(isDark, isPortrait, isAlphabetic, isForTempUse)
+    + newKeyLayout(isDark, isPortrait, keyboardType)
     // Notifications
     + basicStyle.rimeSchemaChangedNotification
     + basicStyle.returnKeyTypeChangedNotification,

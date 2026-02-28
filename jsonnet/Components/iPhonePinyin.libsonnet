@@ -19,5 +19,5 @@ local layoutBopomofo = import 'iPhoneBopomofo.libsonnet';
     else if settings.keyboardLayout == 'bopomofo' then
       layoutBopomofo.new(isDark, isPortrait)
     else
-      layout26.new(isDark, isPortrait, isForTempUse=false),
+      layout26.new(isDark, isPortrait),
 }
