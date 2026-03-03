@@ -53,8 +53,8 @@
   # bottomLeft   ↙️左下角
   # bottom       ⬇️正下方
   # bottomRight  ↘️右下角
-  swipeUpTextCenter: 'top',
-  swipeDownTextCenter: 'hide',
+  swipeUpTextCenter: 'topLeft',
+  swipeDownTextCenter: 'topRight',
 
 
   # toolbar 按钮配置
@@ -74,13 +74,16 @@
   # 20-全选  21-复制  22-剪切
   # 23-粘贴  24-撤销  25-重做
   # 26-左移  27-右移
+  # 自行添加：
+  # 28-打开URL 29-YouTube 30-小红书 31Google
+  # 32-重复上屏 33-元书虎码加词 34-打开doppler 35-Safari
   #
   # 将上述代号填入下面的数组即可
-  toolbarSlideButtons: [ 8, 17, 1, 2, 3, 10, 12 ],
+  toolbarSlideButtons: [ 33, 26, 1, 3, 27, 32, 28, 34 ],
 
   # 滑动按钮区域占几个按键宽度
   toolbarSlideButtonsMaxCount: {
-    portrait: 5,   # 竖屏
+    portrait: 6,   # 竖屏
     landscape: 8,  # 横屏
   },
 
@@ -92,7 +95,7 @@
 
   # 主题色
   # 0-无  1-红色  2-绿色  3-橙色  4-蓝色  5-紫色
-  accentColor: 4,
+  accentColor: 2,
 
 
   # 中文模式下，字母键是否大写显示

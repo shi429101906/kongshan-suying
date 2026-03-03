@@ -16,16 +16,16 @@ local floatingKeyboardButtonsDefine = {
 
   panel: [
     [
-      toolbarParams.toolbarButton.toolbarHamster3Button,
-      toolbarParams.toolbarButton.toolbarKeyboardDefinition,
-      toolbarParams.toolbarButton.toolbarFeedbackButton,
-      toolbarParams.toolbarButton.toolbarCheckUpdateButton,
+      toolbarParams.toolbarButton.toolbarHamster3Button, // 设置
+      toolbarParams.toolbarButton.toolbarRimeInputSchemaButton, // 方案切换
+      toolbarParams.toolbarButton.toolbarSkinPreference, // 微调
+      toolbarParams.toolbarButton.toolbarFeedbackButton, // 震动
     ],
     [
-      toolbarParams.toolbarButton.toolbarSkinButton,
-      toolbarParams.toolbarButton.toolbarSkinPreference,
-      toolbarParams.toolbarButton.toolbarRimeSyncButton,
-      toolbarParams.toolbarButton.toolbarToggleEmbeddedButton,
+      toolbarParams.toolbarButton.toolbarSkinButton, // 皮肤
+      toolbarParams.toolbarButton.toolbarRimeDeployButton, // 部署
+      toolbarParams.toolbarButton.toolbarRimeSyncButton, // 同步
+      toolbarParams.toolbarButton.toolbarToggleEmbeddedButton, // 内嵌
     ],
   ],
 };

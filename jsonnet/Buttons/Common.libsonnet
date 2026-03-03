@@ -55,10 +55,8 @@ local settings = import '../Settings.libsonnet';
         text: settings.spaceButtonComposingText,
         fontSize: fonts.systemButtonTextFontSize,
 
-        swipeUp: {
-          action: { shortcut: '#次选上屏' },
-          text: '次选',
-        },
+        swipeUp: { action: { shortcut: '#次选上屏' } },
+        swipeDown: { action: { shortcut: '#三选上屏' } },
       },
     },
   },
@@ -189,7 +187,13 @@ local settings = import '../Settings.libsonnet';
           },
         ],
       }
-      else {}
+      else {
+        longPress: [
+          { action: { sendKeys: 'Control+h' }, text: '字集' },
+          { action: { sendKeys: 'Control+o' }, text: '简繁' },
+          { action: { shortcut: '#RimeSwitcher' }, text: 'sw' },
+        ],
+      }
     )
     ,
   },
@@ -258,6 +262,14 @@ local settings = import '../Settings.libsonnet';
         text: '。',
         center: { y: 0.3 }
       },
+
+      longPress: [
+        { action: { sendKeys: 'Control+u' }, text: '分区' },
+        { action: { sendKeys: 'Control+y' }, text: '开关' },
+        { action: { sendKeys: 'Control+j' }, text: '拆显' },
+        { action: { sendKeys: 'Control+p' }, text: '拼音' },
+        { action: { sendKeys: 'Control+Shift+Return' }, text: '输出' },
+      ],
 
       whenAlphabetic: {
         text: ',', center: { y: 0.48 },

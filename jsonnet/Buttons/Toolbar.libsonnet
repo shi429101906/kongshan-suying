@@ -336,6 +336,70 @@ local settings = import '../Settings.libsonnet';
         text: '右移',
       },
     },
+    toolbarUrlButton: {
+      name: 'toolbarUrlButton',
+      params: {
+        action: { openURL: '#pasteboardContent' },
+        systemImageName: 'link',
+        text: '链接',
+      },
+    },
+    toolbarOpenYouTubeButton: {
+      name: 'toolbarOpenYouTubeButton',
+      params: {
+        action: { openURL: 'youtube://' },
+        systemImageName: 'play.rectangle.fill',
+        text: 'YouTube',
+      },
+    },
+    toolbarOpenXiaohongshuButton: {
+      name: 'toolbarOpenXiaohongshuButton',
+      params: {
+        action: { openURL: 'xhsdiscover://' },
+        systemImageName: 'heart.text.square.fill',
+        text: '小红书',
+      },
+    },
+    toolbarOpenGoogleButton: {
+      name: 'toolbarOpenGoogleButton',
+      params: {
+        action: { openURL: 'google://' },
+        systemImageName: 'g.circle.fill',
+        text: 'Google',
+      },
+    },
+    toolbarRepeatScreenButton: {
+      name: 'toolbarRepeatScreenButton',
+      params: {
+        action: { sendKeys: ']' },
+        systemImageName: 'repeat',
+        text: 'repeat',
+      },
+    },
+    toolbarAddTigerWordsButton: {
+      name: 'toolbarAddTigerWordsButton',
+      params: {
+        action: { openURL: 'shortcuts://run-shortcut?name=sc虎码加词' },
+        systemImageName: 'text.badge.plus',
+        text: '加词',
+      },
+    },
+    toolbarOpenDopplerButton: {
+      name: 'toolbarOpenDopplerButton',
+      params: {
+        action: { openURL: 'doppler://' },
+        systemImageName: 'music.note',
+        text: 'Doppler',
+      },
+    },
+    toolbarOpenSafariButton: {
+      name: 'toolbarOpenSafariButton',
+      params: {
+        action: { openURL: 'x-web-search://' },
+        systemImageName: 'safari',
+        text: 'Safari',
+      },
+    },
   },
 
   candidateStyle: {

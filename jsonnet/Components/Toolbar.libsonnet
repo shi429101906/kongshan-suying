@@ -225,6 +225,14 @@ local toolbarButtonNames = local buttons = keyboardParams.toolbarButton;
   buttons.toolbarRedoButton.name, // 重做
   buttons.toolbarMoveCursorLeftButton.name, // 光标左移
   buttons.toolbarMoveCursorRightButton.name, // 光标右移
+  buttons.toolbarUrlButton.name, // URL按钮 - 新增
+  buttons.toolbarOpenYouTubeButton.name, // YouTube
+  buttons.toolbarOpenXiaohongshuButton.name, // 小红书
+  buttons.toolbarOpenGoogleButton.name, // Google
+  buttons.toolbarRepeatScreenButton.name, // 重复上屏
+  buttons.toolbarAddTigerWordsButton.name, // 虎码加词
+  buttons.toolbarOpenDopplerButton.name, // 打开doppler播放器
+  buttons.toolbarOpenSafariButton.name, // Safari
 ];
 
 local slideButtons =
