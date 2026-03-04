@@ -134,7 +134,7 @@ local commonButtons = import './Common.libsonnet';
   spaceButton: {
     name: 'spaceButton',
     params: commonButtons.spaceButton.params + {
-      swipeUp: { action: { character: '0' } },
+      swipeUp: { action: { symbol: '0' } },
     },
   },
 
