@@ -56,8 +56,7 @@ local newKeyLayout(isDark=false, isPortrait=true) =
       basicStyle.newAlphabeticButton(
         button.name,
         isDark,
-        button.params + basicStyle.hintStyleSize + basicStyle.textCenterWhenShowSwipeText,
-        swipeTextFollowSetting=true),
+        button.params + basicStyle.hintStyleSize + basicStyle.textCenterWhenShowSwipeText),
       buttons.letterButtons,
       {})
 
@@ -80,7 +79,8 @@ local newKeyLayout(isDark=false, isPortrait=true) =
     commonButtons.commaButton.name,
     isDark,
     { size: { width: { percentage: 0.12 } } }
-    + commonButtons.commaButton.params + basicStyle.hintStyleSize
+    + commonButtons.commaButton.params + basicStyle.hintStyleSize,
+    swipeTextFollowSetting=false,
   )
   + basicStyle.newAlphabeticButton(
     commonButtons.spaceButton.name,

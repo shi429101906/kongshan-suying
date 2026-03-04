@@ -121,8 +121,7 @@ local newKeyLayout(isDark=false, isPortrait=true) =
       basicStyle.newAlphabeticButton(
         button.name,
         isDark,
-        getAlphabeticButtonSize(button.name) + button.params + basicStyle.hintStyleSize + basicStyle.textCenterWhenShowSwipeText,
-        swipeTextFollowSetting=true),
+        getAlphabeticButtonSize(button.name) + button.params + basicStyle.hintStyleSize + basicStyle.textCenterWhenShowSwipeText),
       buttons.letterButtons,
       {})
 
@@ -145,7 +144,8 @@ local newKeyLayout(isDark=false, isPortrait=true) =
     buttons.commaButton.name,
     isDark,
     { size: { width: { percentage: 0.1 } } }
-    + buttons.commaButton.params + basicStyle.hintStyleSize
+    + buttons.commaButton.params + basicStyle.hintStyleSize,
+    swipeTextFollowSetting=false,
   )
   + basicStyle.newAlphabeticButton(
     buttons.spaceButton.name,

@@ -125,9 +125,7 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
           if keyboardType != KeyboardType.English && settings.uppercaseForChinese then
             basicStyle.newAlphabeticButtonUppercaseForegroundStyle(isDark, button.params) + basicStyle.getKeyboardActionText(button.params.uppercased)
           else {}
-        )
-        ,
-        swipeTextFollowSetting=true),
+        )),
       buttons.letterButtons,
       {})
 
@@ -177,7 +175,8 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
   + basicStyle.newAlphabeticButton(
     commonButtons.commaButton.name,
     isDark,
-    portraitNormalButtonSize + processButtonParams(keyboardType, commonButtons.commaButton.params) + basicStyle.hintStyleSize
+    portraitNormalButtonSize + processButtonParams(keyboardType, commonButtons.commaButton.params) + basicStyle.hintStyleSize,
+    swipeTextFollowSetting=false,
   )
   + basicStyle.newAlphabeticButton(
     commonButtons.spaceButton.name,

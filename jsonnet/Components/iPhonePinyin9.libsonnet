@@ -194,7 +194,6 @@ local newKeyLayout(isDark=false, isPortrait=false, extraParams={}) =
           else {}
         ),
         needHint=false,
-        swipeTextFollowSetting=true,
       ),
     pinyin9Buttons.t9Buttons,
     {})
@@ -225,7 +224,6 @@ local newKeyLayout(isDark=false, isPortrait=false, extraParams={}) =
     }
     + pinyin9Buttons.spaceButton.params,
     needHint=false,
-    swipeTextFollowSetting=true,
   )
 
   + basicStyle.newSystemButton(

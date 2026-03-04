@@ -865,7 +865,7 @@ local newToolbarButton(name, isDark=false, params={}) =
     .AddRimeOptionChangeEvent();
   button.GetButton() + button.reference;
 
-local newAlphabeticButton(name, isDark=false, params={}, needHint=true, swipeTextFollowSetting=false) =
+local newAlphabeticButton(name, isDark=false, params={}, needHint=true, swipeTextFollowSetting=true) =
   local button = newButton(name, 'alphabetic', isDark, params)
     .AddBackgroundStyle()
     .AddForegroundStyle(newAlphabeticButtonForegroundStyle)

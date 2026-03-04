@@ -57,9 +57,7 @@ local newKeyLayout(isDark=false, isPortrait=true) =
         basicStyle.hintStyleSize + basicStyle.textCenterWhenShowSwipeText + button.params +
         {
           [if settings.uppercaseForChinese then 'text']: std.asciiUpper(button.params.text)
-        }
-        ,
-        swipeTextFollowSetting=true),
+        }),
       buttons.letterButtons,
       {})
 
@@ -94,7 +92,8 @@ local newKeyLayout(isDark=false, isPortrait=true) =
     commonButtons.commaButton.name,
     isDark,
     { size: { width: { percentage: 0.12 } } }
-    + commonButtons.commaButton.params + basicStyle.hintStyleSize
+    + commonButtons.commaButton.params + basicStyle.hintStyleSize,
+    swipeTextFollowSetting=false,
   )
   + basicStyle.newAlphabeticButton(
     commonButtons.spaceButton.name,
