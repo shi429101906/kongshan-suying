@@ -267,8 +267,13 @@ local settings = import '../Settings.libsonnet';
   clearPreeditButton: {
     name: 'clearPreeditButton',
     params: {
-      action: { shortcut: '#重输' },
-      text: '重输',
+      action: { shortcut: '#换行' },
+      text: '换行',
+
+      whenPreeditChanged: {
+        action: { shortcut: '#重输' },
+        text: '重输',
+      },
     },
   },
 
