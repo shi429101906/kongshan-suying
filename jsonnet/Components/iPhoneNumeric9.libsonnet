@@ -14,20 +14,7 @@ local narrowVStackStyle = {
   style: {
     [this.name]: {
       size: {
-        width: { percentage: 0.17 },
-      },
-    },
-  },
-};
-
-// 宽 VStack 宽度样式
-local wideVStackStyle = {
-  local this = self,
-  name: 'wideVStackStyle',
-  style: {
-    [this.name]: {
-      size: {
-        width: { percentage: 0.22 },
+        width: { percentage: 0.18 },
       },
     },
   },
@@ -60,7 +47,6 @@ local numericLayout = {
     },
     {
       VStack: {
-        style: wideVStackStyle.name,
         subviews: [
           { Cell: numeric9Buttons.oneButton.name, },
           { Cell: numeric9Buttons.fourButton.name, },
@@ -71,7 +57,6 @@ local numericLayout = {
     },
     {
       VStack: {
-        style: wideVStackStyle.name,
         subviews: [
           { Cell: numeric9Buttons.twoButton.name, },
           { Cell: numeric9Buttons.fiveButton.name, },
@@ -82,7 +67,6 @@ local numericLayout = {
     },
     {
       VStack: {
-        style: wideVStackStyle.name,
         subviews: [
           { Cell: numeric9Buttons.threeButton.name, },
           { Cell: numeric9Buttons.sixButton.name, },
@@ -226,7 +210,6 @@ else
       if !isPortrait then halfVStackStyle.style else {}
     )
     + narrowVStackStyle.style
-    + wideVStackStyle.style
     + basicStyle.newKeyboardBackgroundStyle(isDark)
     + basicStyle.newAlphabeticButtonBackgroundStyle(isDark, extraParams)
     + basicStyle.newSystemButtonBackgroundStyle(isDark, extraParams)

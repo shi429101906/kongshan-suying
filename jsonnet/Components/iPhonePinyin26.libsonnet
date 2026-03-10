@@ -93,20 +93,9 @@ local getAlphabeticButtonSize(name) =
     portraitNormalButtonSize
   );
 
-// 英文键盘下，对按键的 params 进行处理
-// 1. 将 character 替换为 symbol
-//    处理方式为 params = replaceCharacterToSymbolRecursive(params)
-// 2. 将 params 中的 whenAlphabetic 合并到 params
-//    处理方式为 params = std.objectRemoveKey(params + std.get(params, 'whenAlphabetic', default={}), 'whenAlphabetic') 的内容
-local processButtonParams(keyboardType, params) =
-  if keyboardType == KeyboardType.English then
-    local paramsWithSymbol = utils.replaceCharacterToSymbolRecursive(params);
-    utils.deepMerge(paramsWithSymbol, std.get(paramsWithSymbol, 'whenAlphabetic', default={}))
-  else
-    params;
-
 local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chinese) =
   local rows = getRows(keyboardType);
+  local isAlphabetic = keyboardType == KeyboardType.English;
   {
     keyboardHeight: if isPortrait then commonButtons.keyboardHeight.portrait else commonButtons.keyboardHeight.landscape,
     keyboardStyle: utils.newBackgroundStyle(style=basicStyle.keyboardBackgroundStyleName),
@@ -120,7 +109,7 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
         button.name,
         isDark,
         getAlphabeticButtonSize(button.name) +
-        processButtonParams(keyboardType, button.params) + basicStyle.hintStyleSize + basicStyle.textCenterWhenShowSwipeText +
+        utils.processButtonParams(isAlphabetic, button.params) + basicStyle.hintStyleSize + basicStyle.textCenterWhenShowSwipeText +
         (
           if keyboardType != KeyboardType.English && settings.uppercaseForChinese then
             basicStyle.newAlphabeticButtonUppercaseForegroundStyle(isDark, button.params) + basicStyle.getKeyboardActionText(button.params.uppercased)
@@ -142,7 +131,7 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
           { width: '151/168.75', alignment: 'left' },
       }
     )
-    + processButtonParams(keyboardType, commonButtons.shiftButton.params)
+    + utils.processButtonParams(isAlphabetic, commonButtons.shiftButton.params)
   )
 
   + basicStyle.newSystemButton(
@@ -161,7 +150,7 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
           { width: '151/168.75', alignment: 'right' },
       }
     )
-    + processButtonParams(keyboardType, commonButtons.backspaceButton.params),
+    + utils.processButtonParams(isAlphabetic, commonButtons.backspaceButton.params),
   )
 
   // Fourth Row
@@ -169,30 +158,28 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
     commonButtons.numericButton.name,
     isDark,
     { size: { width: '225/1125' } }
-    + processButtonParams(keyboardType, commonButtons.numericButton.params)
+    + utils.processButtonParams(isAlphabetic, commonButtons.numericButton.params)
   )
 
   + basicStyle.newAlphabeticButton(
     commonButtons.commaButton.name,
     isDark,
-    portraitNormalButtonSize + processButtonParams(keyboardType, commonButtons.commaButton.params) + basicStyle.hintStyleSize,
+    portraitNormalButtonSize + utils.processButtonParams(isAlphabetic, commonButtons.commaButton.params) + basicStyle.hintStyleSize,
     swipeTextFollowSetting=false,
   )
   + basicStyle.newAlphabeticButton(
     commonButtons.spaceButton.name,
     isDark,
-    {
-      foregroundStyleName: basicStyle.spaceButtonForegroundStyle,
-      foregroundStyle: basicStyle.newSpaceButtonRimeSchemaForegroundStyle(
-        if keyboardType == KeyboardType.English then
-          'English'
-        else if keyboardType == KeyboardType.Temp26Key then
-          '临时中文'
-        else
-          '$rimeSchemaName',
-        isDark),
-    }
-    + processButtonParams(keyboardType, commonButtons.spaceButton.params),
+    utils.processButtonParams(isAlphabetic, commonButtons.spaceButton.params)
+    + basicStyle.newSpaceButtonForegroundStyle(
+      if keyboardType == KeyboardType.English then
+        'English'
+      else if keyboardType == KeyboardType.Temp26Key then
+        '临时中文'
+      else
+        '$rimeSchemaName',
+      isDark
+    ),
     needHint=false,
   )
   + local switchButton = getSwitchButton(keyboardType);
@@ -200,14 +187,14 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
     switchButton.name,
     isDark,
     portraitNormalButtonSize
-    + processButtonParams(keyboardType, switchButton.params)
+    + utils.processButtonParams(isAlphabetic, switchButton.params)
   )
   + basicStyle.newColorButton(
     commonButtons.enterButton.name,
     isDark,
     {
       size: { width: '250/1125' },
-    } + processButtonParams(keyboardType, commonButtons.enterButton.params)
+    } + utils.processButtonParams(isAlphabetic, commonButtons.enterButton.params)
   )
 ;
 

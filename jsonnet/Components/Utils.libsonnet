@@ -305,6 +305,23 @@ local calcMainTextCenter(swipeUpTextCenter, swipeDownTextCenter) =
 local numericActionNeedSymbol(layout) =
   std.member(['9', 'bopomofo'],layout);
 
+local normalizeCenter(center) = {
+  x: std.get(center, 'x', 0.5),
+  y: std.get(center, 'y', 0.5),
+};
+
+// 英文键盘下，对按键的 params 进行处理
+// 1. 将 character 替换为 symbol
+//    处理方式为 params = replaceCharacterToSymbolRecursive(params)
+// 2. 将 params 中的 whenAlphabetic 合并到 params
+//    处理方式为 params = std.objectRemoveKey(params + std.get(params, 'whenAlphabetic', default={}), 'whenAlphabetic') 的内容
+local processButtonParams(isAlphabetic, params) =
+  if isAlphabetic then
+    local paramsWithSymbol = replaceCharacterToSymbolRecursive(params);
+    deepMerge(paramsWithSymbol, std.get(paramsWithSymbol, 'whenAlphabetic', default={}))
+  else
+    params;
+
 {
   extractProperty: extractProperty,
   extractProperties: extractProperties,
@@ -327,4 +344,6 @@ local numericActionNeedSymbol(layout) =
   replaceCharacterToSymbolRecursive: replaceCharacterToSymbolRecursive,
   calcMainTextCenter: calcMainTextCenter,
   numericActionNeedSymbol: numericActionNeedSymbol,
+  normalizeCenter: normalizeCenter,
+  processButtonParams: processButtonParams,
 }

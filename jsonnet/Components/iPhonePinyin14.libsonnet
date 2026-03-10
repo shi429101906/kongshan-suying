@@ -24,7 +24,7 @@ local rows = [
     buttons.lButton,
   ],
   [
-    commonButtons.segmentButton,
+    commonButtons.shiftButton,
     buttons.zButton,
     buttons.cButton,
     buttons.bButton,
@@ -63,12 +63,12 @@ local newKeyLayout(isDark=false, isPortrait=true) =
 
   // Third Row
   + basicStyle.newSystemButton(
-    commonButtons.segmentButton.name,
+    commonButtons.shiftButton.name,
     isDark,
     {
       size: { width: '168.75/1125' },
     }
-    + commonButtons.segmentButton.params
+    + commonButtons.shiftButton.params
   )
 
   + basicStyle.newSystemButton(
@@ -98,11 +98,8 @@ local newKeyLayout(isDark=false, isPortrait=true) =
   + basicStyle.newAlphabeticButton(
     commonButtons.spaceButton.name,
     isDark,
-    {
-      foregroundStyleName: basicStyle.spaceButtonForegroundStyle,
-      foregroundStyle: basicStyle.newSpaceButtonRimeSchemaForegroundStyle('$rimeSchemaName', isDark),
-    }
-    + commonButtons.spaceButton.params,
+    commonButtons.spaceButton.params
+    + basicStyle.newSpaceButtonForegroundStyle('$rimeSchemaName', isDark),
     needHint=false,
   )
   + basicStyle.newSystemButton(
