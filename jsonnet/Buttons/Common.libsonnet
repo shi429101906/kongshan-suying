@@ -275,4 +275,114 @@ local settings = import '../Settings.libsonnet';
     },
   },
 
+  // =====================================
+  // 功能行按键（光标移动 / 编辑操作）
+  // =====================================
+
+  funcLeftButton: {
+    name: 'funcLeftButton',
+    params: {
+      action: 'moveCursorBackward',
+      repeatAction: 'moveCursorBackward',
+      systemImageName: 'arrow.left',
+
+      whenPreeditChanged: {
+        action: { sendKeys: 'Up' },
+        swipeUp: { action: { character: '[' }, text: '[' },
+      },
+    },
+  },
+
+  funcHeadButton: {
+    name: 'funcHeadButton',
+    params: {
+      action: { shortcut: '#行首' },
+      systemImageName: 'arrow.left.to.line',
+
+      whenPreeditChanged: {
+        action: { shortcut: '#rimeNextPage' },
+        swipeUp: { action: { shortcut: '#rimePreviousPage' }, systemImageName: 'chevron.up' },
+      },
+    },
+  },
+
+  funcSelectButton: {
+    name: 'funcSelectButton',
+    params: {
+      action: { shortcut: '#selectText' },
+      systemImageName: 'selection.pin.in.out',
+      whenPreeditChanged: {
+        action: { character: '7' },
+        text: 'ˉ',
+        swipeUp: { action: { sendKeys: 'control+1' }, text: '①' },
+      },
+    },
+  },
+
+  funcCutButton: {
+    name: 'funcCutButton',
+    params: {
+      action: { shortcut: '#cut' },
+      systemImageName: 'scissors',
+      whenPreeditChanged: {
+        action: { character: '8' },
+        text: 'ˊ',
+        swipeUp: { action: { sendKeys: 'control+2' }, text: '②' },
+      },
+    },
+  },
+
+  funcCopyButton: {
+    name: 'funcCopyButton',
+    params: {
+      action: { shortcut: '#copy' },
+      systemImageName: 'doc.on.doc',
+      whenPreeditChanged: {
+        action: { character: '9' },
+        text: 'ˇ',
+        swipeUp: { action: { sendKeys: 'control+3' }, text: '③' },
+      },
+    },
+  },
+
+  funcPasteButton: {
+    name: 'funcPasteButton',
+    params: {
+      action: { shortcut: '#paste' },
+      systemImageName: 'doc.on.clipboard',
+      whenPreeditChanged: {
+        action: { character: '0' },
+        text: 'ˋ',
+        swipeUp: { action: { sendKeys: 'control+4' }, text: '④' },
+      },
+    },
+  },
+
+  funcTailButton: {
+    name: 'funcTailButton',
+    params: {
+      action: { shortcut: '#行尾' },
+      systemImageName: 'arrow.right.to.line',
+
+      whenPreeditChanged: {
+        action: { sendKeys: 'backslash' },
+        swipeUp: { action: { character: '\\' }, text: '\\' },
+      },
+    },
+  },
+
+  funcRightButton: {
+    name: 'funcRightButton',
+    params: {
+      action: 'moveCursorForward',
+      repeatAction: 'moveCursorForward',
+      systemImageName: 'arrow.right',
+
+      whenPreeditChanged: {
+        action: { sendKeys: 'Down' },
+        swipeUp: { action: { character: ']' }, text: ']' },
+      },
+    },
+  },
+
 }

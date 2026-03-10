@@ -26,8 +26,21 @@ local getSwitchButton(keyboardType) =
   else
     commonButtons.alphabeticButton;
 
+// 功能行按键（光标移动 / 编辑操作）
+local funcRow = [
+  commonButtons.funcLeftButton,
+  commonButtons.funcHeadButton,
+  commonButtons.funcSelectButton,
+  commonButtons.funcCutButton,
+  commonButtons.funcCopyButton,
+  commonButtons.funcPasteButton,
+  commonButtons.funcTailButton,
+  commonButtons.funcRightButton,
+];
+
 // 标准26键布局
 local getRows(keyboardType) = [
+  funcRow,
   [
     buttons.qButton,
     buttons.wButton,
@@ -97,10 +110,22 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
   local rows = getRows(keyboardType);
   local isAlphabetic = keyboardType == KeyboardType.English;
   {
-    keyboardHeight: if isPortrait then commonButtons.keyboardHeight.portrait else commonButtons.keyboardHeight.landscape,
+    keyboardHeight: if isPortrait then commonButtons.keyboardHeight.portrait + 54 else commonButtons.keyboardHeight.landscape + 40,
     keyboardStyle: utils.newBackgroundStyle(style=basicStyle.keyboardBackgroundStyleName),
   }
   + utils.newRowKeyboardLayout(rows)
+
+  // Function Row Buttons
+  + std.foldl(function(acc, button)
+      acc +
+      basicStyle.newAlphabeticButton(
+        button.name,
+        isDark,
+        utils.processButtonParams(isAlphabetic, button.params),
+        needHint=false,
+      ),
+      funcRow,
+      {})
 
   // letter Buttons
   + std.foldl(function(acc, button)
