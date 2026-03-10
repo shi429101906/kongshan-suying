@@ -314,8 +314,20 @@ local newToolbar(isDark=false, isPortrait=false, params={}) =
     verticalCandidatesLayout: verticalCandidatesLayout,
     candidateContextMenu: [
       {
-        name: '简繁',
-        action: { sendKeys: 'Control+Shift+dollar' },
+        name: '左移',
+        action: { sendKeys: 'Control+j' },
+      },
+      {
+        name: '右移',
+        action: { sendKeys: 'Control+k' },
+      },
+      {
+        name: '重置',
+        action: { sendKeys: 'Control+l' },
+      },
+      {
+        name: '置顶',
+        action: { sendKeys: 'Control+p' },
       },
     ],
   }
