@@ -2,6 +2,7 @@ local iPhonePinyin = import 'Components/iPhonePinyin.libsonnet';
 local temp26KeyLayout = import 'Components/Temp26KeyLayout.libsonnet';
 local iPhoneAlphabetic = import 'Components/iPhoneAlphabetic.libsonnet';
 local iPhoneNumeric = import 'Components/iPhoneNumeric.libsonnet';
+local iPhoneNumericRowEn = import 'Components/iPhoneNumericRowEn.libsonnet';
 local floatingKeyboard = import 'Components/FloatingKeyboard.libsonnet';
 local settings = import 'Settings.libsonnet';
 
@@ -16,6 +17,7 @@ local nameToComponent = {
   alphabetic: iPhoneAlphabetic,
   numeric: iPhoneNumeric,
   [if !std.startsWith(settings.keyboardLayout, '26') then 'temp26Key']: temp26KeyLayout,
+  [if settings.numericLayout == 'row' then 'numericRowEn']: iPhoneNumericRowEn,
 };
 
 local getFileName(componentName, isPortrait) = componentName + (if isPortrait then 'Portrait' else 'Landscape');

@@ -13,6 +13,11 @@ local portraitNormalButtonSize = {
   size: { width: '112.5/1125' },
 };
 
+local KeyboardType = {
+  Chinese: 0,
+  English: 1,
+};
+
 // 布局
 local numericRows = [
   [
@@ -30,11 +35,11 @@ local numericRows = [
   [
     numericButtons.hyphenButton,
     numericButtons.forwardSlashButton,
-    numericButtons.chineseColonButton,
-    numericButtons.chineseSemicolonButton,
+    numericButtons.colonButton,
+    numericButtons.semicolonButton,
     numericButtons.leftParenthesisButton,
     numericButtons.rightParenthesisButton,
-    numericButtons.rmbButton,
+    numericButtons.moneyButton,
     numericButtons.atButton,
     numericButtons.leftCurlyQuoteButton,
     numericButtons.rightCurlyQuoteButton,
@@ -45,8 +50,8 @@ local numericRows = [
     numericButtons.asteriskButton,
     numericButtons.ideographicCommaButton,
     numericButtons.hashButton,
-    numericButtons.chineseQuestionMarkButton,
-    numericButtons.chineseExclamationMarkButton,
+    numericButtons.questionMarkButton,
+    numericButtons.exclamationMarkButton,
     numericButtons.dotButton,
     commonButtons.backspaceButton,
   ],
@@ -85,7 +90,8 @@ local getButtonSize(name) =
   );
 
 
-local newKeyLayout(isDark=false, isPortrait=false, extraParams={}) =
+local newKeyLayout(isDark=false, isPortrait=false, keyboardType=KeyboardType.Chinese) =
+  local isAlphabetic = keyboardType == KeyboardType.English;
   {
     keyboardHeight: if isPortrait then commonButtons.keyboardHeight.portrait else commonButtons.keyboardHeight.landscape,
     keyboardStyle: utils.newBackgroundStyle(style=basicStyle.keyboardBackgroundStyleName),
@@ -100,7 +106,7 @@ local newKeyLayout(isDark=false, isPortrait=false, extraParams={}) =
         {
           fontSize: fonts.numericButtonTextFontSize,
         }
-        + button.params + basicStyle.hintStyleSize
+        + utils.processButtonParams(isAlphabetic, button.params) + basicStyle.hintStyleSize
         + (
           if utils.numericActionNeedSymbol(settings.keyboardLayout) then
           {
@@ -119,16 +125,17 @@ local newKeyLayout(isDark=false, isPortrait=false, extraParams={}) =
       basicStyle.newAlphabeticButton(
         button.name,
         isDark,
-        getButtonSize(button.name) + button.params + basicStyle.hintStyleSize
+        getButtonSize(button.name)
+        + utils.processButtonParams(isAlphabetic, button.params) + basicStyle.hintStyleSize
       ),
     [
       numericButtons.hyphenButton,
       numericButtons.forwardSlashButton,
-      numericButtons.chineseColonButton,
-      numericButtons.chineseSemicolonButton,
+      numericButtons.colonButton,
+      numericButtons.semicolonButton,
       numericButtons.leftParenthesisButton,
       numericButtons.rightParenthesisButton,
-      numericButtons.rmbButton,
+      numericButtons.moneyButton,
       numericButtons.atButton,
       numericButtons.leftCurlyQuoteButton,
       numericButtons.rightCurlyQuoteButton,
@@ -137,8 +144,8 @@ local newKeyLayout(isDark=false, isPortrait=false, extraParams={}) =
       numericButtons.asteriskButton,
       numericButtons.ideographicCommaButton,
       numericButtons.hashButton,
-      numericButtons.chineseQuestionMarkButton,
-      numericButtons.chineseExclamationMarkButton,
+      numericButtons.questionMarkButton,
+      numericButtons.exclamationMarkButton,
       numericButtons.dotButton,
 
       numericButtons.chinesePeriodButton,
@@ -147,7 +154,7 @@ local newKeyLayout(isDark=false, isPortrait=false, extraParams={}) =
     basicStyle.newAlphabeticButton(
       numericButtons.numericSpaceButton.name,
       isDark,
-      numericButtons.numericSpaceButton.params,
+      utils.processButtonParams(isAlphabetic, numericButtons.numericSpaceButton.params),
       needHint=false,
     ))
   + std.foldl(
@@ -155,7 +162,8 @@ local newKeyLayout(isDark=false, isPortrait=false, extraParams={}) =
       basicStyle.newSystemButton(
         button.name,
         isDark,
-        button.params + getButtonSize(button.name)
+        getButtonSize(button.name)
+        + utils.processButtonParams(isAlphabetic, button.params)
       ),
     [
       commonButtons.symbolicButton,
@@ -165,11 +173,16 @@ local newKeyLayout(isDark=false, isPortrait=false, extraParams={}) =
     basicStyle.newColorButton(
       commonButtons.gotoPrimaryKeyboardButton.name,
       isDark,
-      commonButtons.gotoPrimaryKeyboardButton.params + { size: { width: '225/1125' } }
+      { size: { width: '225/1125' } }
+      + utils.processButtonParams(isAlphabetic, commonButtons.gotoPrimaryKeyboardButton.params)
     ));
 
 {
-  new(isDark, isPortrait):
+  // 枚举键盘类型
+  KeyboardType:: KeyboardType,
+
+  // 从拼音键盘切过来时，keyboardType 为 KeyboardType.Chinese；从英文键盘切过来时，keyboardType 为 KeyboardType.English
+  new(isDark, isPortrait, keyboardType=KeyboardType.Chinese):
     local insets = if isPortrait then commonButtons.backgroundInsets.portrait else commonButtons.backgroundInsets.landscape;
 
     local extraParams = {
@@ -186,6 +199,6 @@ local newKeyLayout(isDark=false, isPortrait=false, extraParams={}) =
     + basicStyle.newLongPressSymbolsBackgroundStyle(isDark, extraParams)
     + basicStyle.newLongPressSymbolsSelectedBackgroundStyle(isDark, extraParams)
     + basicStyle.newButtonAnimation()
-    + newKeyLayout(isDark, isPortrait, extraParams)
+    + newKeyLayout(isDark, isPortrait, keyboardType)
     // Notifications
 }
