@@ -182,7 +182,7 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
   + basicStyle.newSystemButton(
     commonButtons.numericButton.name,
     isDark,
-    { size: { width: '225/1125' } }
+    { size: { width: '190/1125' } }
     + utils.processButtonParams(isAlphabetic, commonButtons.numericButton.params)
     + (
 	  // 对于英文键盘，如果数字键盘是 row 形式，那么切到 numericRowEn 键盘
@@ -225,7 +225,7 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
     commonButtons.enterButton.name,
     isDark,
     {
-      size: { width: '250/1125' },
+      size: { width: '210/1125' },
     } + utils.processButtonParams(isAlphabetic, commonButtons.enterButton.params)
   )
 ;
