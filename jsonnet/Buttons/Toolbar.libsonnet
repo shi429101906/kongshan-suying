@@ -379,7 +379,7 @@ local settings = import '../Settings.libsonnet';
     toolbarAddTigerWordsButton: {
       name: 'toolbarAddTigerWordsButton',
       params: {
-        action: { openURL: 'shortcuts://run-shortcut?name=sc虎码加词' },
+        action: { openURL: 'scripting://run/虎码词库管理?action=add' },
         systemImageName: 'text.badge.plus',
         text: '加词',
       },

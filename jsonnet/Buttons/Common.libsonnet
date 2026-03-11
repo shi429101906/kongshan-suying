@@ -285,7 +285,7 @@ local settings = import '../Settings.libsonnet';
       whenPreeditChanged: {
         action: { sendKeys: 'Up' },
         systemImageName: 'square.filled.and.line.vertical.and.square',
-        swipeUp: { action: { character: '[' }, text: '[' },
+        swipeUp: { action: { character: '[' }, text: '' },
       },
     },
   },
@@ -299,7 +299,7 @@ local settings = import '../Settings.libsonnet';
       whenPreeditChanged: {
         action: { shortcut: '#rimeNextPage' },
         systemImageName: 'chevron.compact.up.chevron.compact.down',
-        swipeUp: { action: { shortcut: '#rimePreviousPage' }, systemImageName: 'chevron.up' },
+        swipeUp: { action: { shortcut: '#rimePreviousPage' }, systemImageName: '' }, # chevron.up
       },
     },
   },
@@ -311,7 +311,7 @@ local settings = import '../Settings.libsonnet';
       systemImageName: 'selection.pin.in.out',
       whenPreeditChanged: {
         action: { character: '7' },
-        text: 'ˉ',
+        text: '7', // ˉ
         swipeUp: { action: { sendKeys: 'control+1' }, text: '①' },
       },
     },
@@ -324,7 +324,7 @@ local settings = import '../Settings.libsonnet';
       systemImageName: 'scissors',
       whenPreeditChanged: {
         action: { character: '8' },
-        text: 'ˊ',
+        text: '8', // ˊ
         swipeUp: { action: { sendKeys: 'control+2' }, text: '②' },
       },
     },
@@ -337,7 +337,7 @@ local settings = import '../Settings.libsonnet';
       systemImageName: 'doc.on.doc',
       whenPreeditChanged: {
         action: { character: '9' },
-        text: 'ˇ',
+        text: '9', // ˇ
         swipeUp: { action: { sendKeys: 'control+3' }, text: '③' },
       },
     },
@@ -350,7 +350,7 @@ local settings = import '../Settings.libsonnet';
       systemImageName: 'doc.on.clipboard',
       whenPreeditChanged: {
         action: { character: '0' },
-        text: 'ˋ',
+        text: '0', // ˋ
         swipeUp: { action: { sendKeys: 'control+4' }, text: '④' },
       },
     },
@@ -365,7 +365,7 @@ local settings = import '../Settings.libsonnet';
       whenPreeditChanged: {
         action: { sendKeys: 'backslash' },
         systemImageName: 'ellipsis.viewfinder',
-        swipeUp: { action: { character: '\\' }, text: '\\' },
+        swipeUp: { action: { character: '\\' }, text: '' },
       },
     },
   },
@@ -380,7 +380,7 @@ local settings = import '../Settings.libsonnet';
       whenPreeditChanged: {
         action: { sendKeys: 'Down' },
         systemImageName: 'square.and.line.vertical.and.square.filled',
-        swipeUp: { action: { character: ']' }, text: ']' },
+        swipeUp: { action: { character: ']' }, text: '' },
       },
     },
   },
