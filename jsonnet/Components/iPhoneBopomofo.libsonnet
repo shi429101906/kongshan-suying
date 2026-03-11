@@ -150,8 +150,7 @@ local newKeyLayout(isDark=false, isPortrait=true) =
   + basicStyle.newAlphabeticButton(
     buttons.spaceButton.name,
     isDark,
-    buttons.spaceButton.params
-    + basicStyle.newSpaceButtonForegroundStyle('$rimeSchemaName', isDark),
+    basicStyle.newSpaceButtonForegroundStyle(buttons.spaceButton.params, '$rimeSchemaName', isDark),
     needHint=false,
   )
   +

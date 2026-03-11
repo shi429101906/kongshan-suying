@@ -205,8 +205,7 @@ local newKeyLayout(isDark=false, isPortrait=false, extraParams={}) =
   + basicStyle.newAlphabeticButton(
     pinyin9Buttons.spaceButton.name,
     isDark,
-    pinyin9Buttons.spaceButton.params
-    + basicStyle.newSpaceButtonForegroundStyle('$rimeSchemaName', isDark),
+    basicStyle.newSpaceButtonForegroundStyle(pinyin9Buttons.spaceButton.params, '$rimeSchemaName', isDark),
     needHint=false,
   )
 

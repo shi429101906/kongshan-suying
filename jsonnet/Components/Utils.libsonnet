@@ -13,25 +13,6 @@ local extractProperties(obj, keys) =
 local excludeProperties(obj, keys) =
   { [k]: obj[k] for k in std.objectFields(obj) if !std.member(keys, k) };
 
-// 深度合并两个对象，例如
-// local obj1 = { swipeUp: { action: { character: '.' } } };
-// local obj2 = { swipeUp: { text: '。' } };
-// deepMerge(obj1, obj2) 结果为 { swipeUp: { action: { character: '.' }, text: '。' } }
-local deepMerge(x, y) =
-  if std.isObject(x) && std.isObject(y) then
-    // 遍历两个对象的所有字段
-    {
-      [k]:
-        if std.objectHas(x, k) && std.objectHas(y, k) then
-          deepMerge(x[k], y[k])  // 如果两边都有该字段，递归合并
-        else if std.objectHas(x, k) then
-          x[k]  // 只在 x 中存在
-        else
-          y[k]  // 只在 y 中存在
-      for k in std.setUnion(std.objectFields(x), std.objectFields(y))
-    }
-  else y;  // 如果不是对象，直接用 y 覆盖
-
 local isPrintableAsciiChar(c) =
   assert std.type(c) == 'string' && std.length(c) == 1 : 'isPrintableAsciiChar requires a single character string, input is ' + c;
   local cp = std.codepoint(c);
@@ -318,7 +299,7 @@ local normalizeCenter(center) = {
 local processButtonParams(isAlphabetic, params) =
   if isAlphabetic then
     local paramsWithSymbol = replaceCharacterToSymbolRecursive(params);
-    deepMerge(paramsWithSymbol, std.get(paramsWithSymbol, 'whenAlphabetic', default={}))
+    std.mergePatch(paramsWithSymbol, std.get(paramsWithSymbol, 'whenAlphabetic', default={}))
   else
     params;
 
@@ -326,7 +307,6 @@ local processButtonParams(isAlphabetic, params) =
   extractProperty: extractProperty,
   extractProperties: extractProperties,
   excludeProperties: excludeProperties,
-  deepMerge: deepMerge,
   setColor: setColor,
   extractColors: extractColors,
   newGeometryStyle: newGeometryStyle,

@@ -155,7 +155,12 @@ local settings = import '../Settings.libsonnet';
   forwardSlashButton: {
     name: 'forwardSlashButton',
     params: {
-      action: { character: '/' },
+      action: { symbol: '/' },
+
+      whenPreeditChanged: {
+        // 当 preedit 中有内容时，斜杠交给 Rime 处理
+        action: { character: '/' },
+      },
     },
   },
 
@@ -164,6 +169,11 @@ local settings = import '../Settings.libsonnet';
     name: 'colonButton',
     params: {
       action: { character: ':' },
+      text: '：',
+
+      whenAlphabetic: {
+        text: ':',
+      },
     },
   },
 
@@ -172,6 +182,11 @@ local settings = import '../Settings.libsonnet';
     name: 'semicolonButton',
     params: {
       action: { character: ';' },
+      text: '；',
+
+      whenAlphabetic: {
+        text: ';',
+      },
     },
   },
 

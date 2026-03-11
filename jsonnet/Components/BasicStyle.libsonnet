@@ -414,7 +414,7 @@ local newButton(name, type='alphabetic', isDark=false, params={}) =
   name: name,
   type: type, // type 可选值： alphabetic, system, color
   isDark: isDark,
-  params: std.prune(params),
+  params: params,
 
   showSwipeUpText: true,
   showSwipeDownText: true,
@@ -923,26 +923,27 @@ local spaceButtonForegroundStyle = [
   else []
   );
 
-local newSpaceButtonForegroundStyle(schemaNameText, isDark=false) =
-  if needCornerSchemaName then {
-    foregroundStyleName: spaceButtonForegroundStyle,
+local newSpaceButtonForegroundStyle(params, schemaNameText, isDark=false) =
+  std.mergePatch(params,
+    if needCornerSchemaName then {
+      foregroundStyleName: spaceButtonForegroundStyle,
 
-    foregroundStyle: {
-      [spaceButtonRimeSchemaForegroundStyleName]: utils.newTextStyle({
-        text: schemaNameText,
-        fontSize: fonts.alternativeTextFontSize,
-        center: settings.spaceButtonSchemaNameCenter,
-        normalColor: colors.alternativeForegroundColor,
-        highlightColor: colors.alternativeHighlightedForegroundColor,
-      }, isDark),
-    },
-  }
-  else if showSchemaName then {
-    text: schemaNameText,
-    systemImageName: null,
-    fontSize: fonts.systemButtonTextFontSize,
-  }
-  else {};
+      foregroundStyle: {
+        [spaceButtonRimeSchemaForegroundStyleName]: utils.newTextStyle({
+          text: schemaNameText,
+          fontSize: fonts.alternativeTextFontSize,
+          center: settings.spaceButtonSchemaNameCenter,
+          normalColor: colors.alternativeForegroundColor,
+          highlightColor: colors.alternativeHighlightedForegroundColor,
+        }, isDark),
+      },
+    }
+    else if showSchemaName then {
+      text: schemaNameText,
+      systemImageName: null,
+      fontSize: fonts.systemButtonTextFontSize,
+    }
+    else {});
 
 local rimeSchemaChangedNotification =
   {
