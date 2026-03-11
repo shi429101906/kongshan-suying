@@ -121,7 +121,7 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
       basicStyle.newAlphabeticButton(
         button.name,
         isDark,
-        utils.processButtonParams(isAlphabetic, button.params),
+        { fontSize: 18 } + utils.processButtonParams(isAlphabetic, button.params),
         needHint=false,
       ),
       funcRow,

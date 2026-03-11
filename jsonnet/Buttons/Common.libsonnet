@@ -65,7 +65,7 @@ local settings = import '../Settings.libsonnet';
     name: 'tabButton',
     params: {
       action: 'tab',
-      systemImageName: 'arrow.right.to.line',
+      systemImageName: 'text.line.last.and.arrowtriangle.forward',
     },
   },
 
@@ -284,10 +284,11 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: 'moveCursorBackward',
       repeatAction: 'moveCursorBackward',
-      systemImageName: 'arrow.left',
+      systemImageName: 'arrowshape.turn.up.left.fill',
 
       whenPreeditChanged: {
         action: { sendKeys: 'Up' },
+        systemImageName: 'square.filled.and.line.vertical.and.square',
         swipeUp: { action: { character: '[' }, text: '[' },
       },
     },
@@ -297,10 +298,11 @@ local settings = import '../Settings.libsonnet';
     name: 'funcHeadButton',
     params: {
       action: { shortcut: '#行首' },
-      systemImageName: 'arrow.left.to.line',
+      systemImageName: 'text.line.first.and.arrowtriangle.forward',
 
       whenPreeditChanged: {
         action: { shortcut: '#rimeNextPage' },
+        systemImageName: 'chevron.compact.up.chevron.compact.down',
         swipeUp: { action: { shortcut: '#rimePreviousPage' }, systemImageName: 'chevron.up' },
       },
     },
@@ -362,10 +364,11 @@ local settings = import '../Settings.libsonnet';
     name: 'funcTailButton',
     params: {
       action: { shortcut: '#行尾' },
-      systemImageName: 'arrow.right.to.line',
+      systemImageName: 'text.line.last.and.arrowtriangle.forward',
 
       whenPreeditChanged: {
         action: { sendKeys: 'backslash' },
+        systemImageName: 'ellipsis.viewfinder',
         swipeUp: { action: { character: '\\' }, text: '\\' },
       },
     },
@@ -376,10 +379,11 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: 'moveCursorForward',
       repeatAction: 'moveCursorForward',
-      systemImageName: 'arrow.right',
+      systemImageName: 'arrowshape.turn.up.right.fill',
 
       whenPreeditChanged: {
         action: { sendKeys: 'Down' },
+        systemImageName: 'square.and.line.vertical.and.square.filled',
         swipeUp: { action: { character: ']' }, text: ']' },
       },
     },
