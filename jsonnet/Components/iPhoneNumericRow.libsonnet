@@ -1,7 +1,6 @@
 local numericButtons = import '../Buttons/LayoutNumeric.libsonnet';
 local symbolicButtons = import '../Buttons/LayoutSymbolic.libsonnet';
 local commonButtons = import '../Buttons/Common.libsonnet';
-local toolbarParams = import '../Buttons/Toolbar.libsonnet';
 local fonts = import '../Constants/Fonts.libsonnet';
 local basicStyle = import 'BasicStyle.libsonnet';
 local preedit = import 'Preedit.libsonnet';
