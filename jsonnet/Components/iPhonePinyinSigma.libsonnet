@@ -99,7 +99,7 @@ local keyboardLayout = {
           { Cell: commonButtons.enterButton.name },
           { Cell: commonButtons.commaButton.name },
           { Cell: commonButtons.spaceButton.name },
-          { Cell: commonButtons.alphabeticButton.name },
+          { Cell: buttons.alphabeticButton.name },
           { Cell: commonButtons.backspaceButton.name },
         ],
       },
@@ -146,7 +146,8 @@ local newKeyLayout(isDark=false, isPortrait=true) =
       basicStyle.newAlphabeticButton(
         button.name,
         isDark,
-        getAlphabeticButtonSize(button.name) + button.params + basicStyle.hintStyleSize + basicStyle.textCenterWhenShowSwipeText),
+        getAlphabeticButtonSize(button.name) + button.params + basicStyle.hintStyleSize + basicStyle.textCenterWhenShowSwipeText,
+        needHint=false),
       buttons.letterButtons,
       {})
 
@@ -165,16 +166,16 @@ local newKeyLayout(isDark=false, isPortrait=true) =
     swipeTextFollowSetting=false,
   )
   + basicStyle.newAlphabeticButton(
-    buttons.spaceButton.name,
+    commonButtons.spaceButton.name,
     isDark,
-    basicStyle.newSpaceButtonForegroundStyle(buttons.spaceButton.params, '$rimeSchemaName', isDark),
+    basicStyle.newSpaceButtonForegroundStyle(commonButtons.spaceButton.params, '$rimeSchemaName', isDark),
     needHint=false,
   )
   + basicStyle.newSystemButton(
-    commonButtons.alphabeticButton.name,
+    buttons.alphabeticButton.name,
     isDark,
     { size: { width: { percentage: 0.12 } } }
-    + commonButtons.alphabeticButton.params
+    + buttons.alphabeticButton.params
   )
 
   + basicStyle.newSystemButton(
@@ -187,7 +188,7 @@ local newKeyLayout(isDark=false, isPortrait=true) =
 
 local backgroundInsets = if !settings.iPad then
 {
-  portrait: { top: 3, left: 4, bottom: 3, right: 4 },
+  portrait: { top: 3, left: 3, bottom: 3, right: 3 },
   landscape: { top: 2, left: 3, bottom: 2, right: 3 },
 }
 else
