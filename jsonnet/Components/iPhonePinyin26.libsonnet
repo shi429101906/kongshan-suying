@@ -38,10 +38,19 @@ local funcRow = [
   commonButtons.funcRightButton,
 ];
 
+// 功能行高度，修改这里调整按键行的高低
+// 竖屏总高 = keyboardHeight.portrait + funcRowHeight.portrait
+local funcRowHeight = {
+  portrait: 45,   // 调小让功能行更扁（原为 54）
+  landscape: 32,  // 横屏（原为 40）
+};
+
 local keyboardLayout(keyboardType) = {
   keyboardLayout: [
     {
+      // 通过 style 引用 funcRowStyle，单独控制这一行的高度
       HStack: {
+        style: 'funcRowStyle',
         subviews: [
           { Cell: commonButtons.funcLeftButton.name },
           { Cell: commonButtons.funcHeadButton.name },
@@ -138,9 +147,18 @@ local getAlphabeticButtonSize(name) =
 
 local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chinese) =
   local isAlphabetic = keyboardType == KeyboardType.English;
+  local totalKeyboardHeight = if isPortrait then commonButtons.keyboardHeight.portrait else commonButtons.keyboardHeight.landscape;
+  local fRowHeight = if isPortrait then funcRowHeight.portrait else funcRowHeight.landscape;
   {
-    keyboardHeight: if isPortrait then commonButtons.keyboardHeight.portrait + 54 else commonButtons.keyboardHeight.landscape + 40,
+    keyboardHeight: totalKeyboardHeight + fRowHeight,
     keyboardStyle: utils.newBackgroundStyle(style=basicStyle.keyboardBackgroundStyleName),
+
+    // HStack style：用分数字符串表示功能行占总高度的比例
+    funcRowStyle: {
+      size: {
+        height: '%d/%d' % [fRowHeight, totalKeyboardHeight + fRowHeight],
+      },
+    },
   }
   + keyboardLayout(keyboardType)
 
@@ -150,7 +168,7 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
       basicStyle.newAlphabeticButton(
         button.name,
         isDark,
-        { fontSize: 18 } + utils.processButtonParams(isAlphabetic, button.params),
+        { fontSize: 16 } + utils.processButtonParams(isAlphabetic, button.params),
         needHint=false,
       ),
       funcRow,
@@ -214,8 +232,8 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
     { size: { width: '220/1125' } }
     + utils.processButtonParams(isAlphabetic, commonButtons.numericButton.params)
     + (
-	  // 对于英文键盘，如果数字键盘是 row 形式，那么切到 numericRowEn 键盘
-	  // numericRowEn 键盘经过特殊处理，上面的符号都是用 symbol 直接上屏的
+      // 对于英文键盘，如果数字键盘是 row 形式，那么切到 numericRowEn 键盘
+      // numericRowEn 键盘经过特殊处理，上面的符号都是用 symbol 直接上屏的
       if isAlphabetic && settings.numericLayout == 'row' then
         { action: { keyboardType: 'numericRowEn' } }
       else {}
@@ -267,7 +285,7 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
   // 只在非26键布局下额外生成一个26键布局，action 使用 character，把动作发给 Rime 处理
   // 和主键盘的区别在于"中英切换键"改为"返回"键
   new(isDark, isPortrait, keyboardType=KeyboardType.Chinese):
-	local insets = if isPortrait then commonButtons.backgroundInsets.portrait else commonButtons.backgroundInsets.landscape;
+    local insets = if isPortrait then commonButtons.backgroundInsets.portrait else commonButtons.backgroundInsets.landscape;
 
     local extraParams = {
       insets: insets,
