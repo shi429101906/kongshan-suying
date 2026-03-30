@@ -80,7 +80,7 @@
   # 32-重复上屏 33-元书虎码加词 34-打开doppler 35-Safari
   #
   # 将上述代号填入下面的数组即可
-  toolbarSlideButtons: [ 33, 2, 1, 3, 28, 32, 34 ],
+  toolbarSlideButtons: [ 33, 8, 1, 3, 28, 32, 34 ],
 
   # 滑动按钮区域占几个按键宽度
   toolbarSlideButtonsMaxCount: {
