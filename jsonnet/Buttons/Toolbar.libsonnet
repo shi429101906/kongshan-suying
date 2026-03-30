@@ -249,7 +249,7 @@ local settings = import '../Settings.libsonnet';
       name: 'toolbarKeyboardNumericButton',
       params: {
         action: { keyboardType: 'numeric', },
-        systemImageName: 'circle.grid.3x3',
+        systemImageName: 'textformat.123',
         text: '数字',
       },
     },

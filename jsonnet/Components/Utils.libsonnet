@@ -188,52 +188,6 @@ local newForegroundStyle(styleName='foregroundStyle', style) = { [styleName]: st
 
 local newAnimation(animation) = { animation: animation };
 
-local newRowKeyboardLayout(rows) = {
-  keyboardLayout: [
-    {
-      HStack: {
-        subviews: [
-          {
-            Cell: button.name,
-          }
-          for button in row
-        ],
-      },
-    }
-    for row in rows
-  ],
-};
-
-// rime option 变化时生成 notification 及 foreground style
-local rimeOptionChangedForegroundStyleName(name, rimeOptionName, value) =
-  name + rimeOptionName + (if value then 'On' else 'Off') + 'ForegroundStyle';
-
-local rimeOptionChangedNotificationName(name, rimeOptionName, value) =
-  name + rimeOptionName + (if value then 'On' else 'Off') + 'Notification';
-
-local newRimeOptionChangedNotification(name, rimeOptionName, value, params={}) = {  // value is true or false
-  [rimeOptionChangedNotificationName(name, rimeOptionName, value)]: {
-    notificationType: 'rime',
-    rimeNotificationType: 'optionChanged',
-    rimeOptionName: rimeOptionName,
-    rimeOptionValue: value,
-    backgroundStyle: params.backgroundStyleName,
-    foregroundStyle: params.foregroundStyleName,
-  } + extractProperties(
-    params,
-    [
-      'action',
-      'swipeUpAction',
-      'swipeDownAction',
-      'bounds',
-      'hintStyle',
-      'hintSymbolsStyle',
-      'uppercasedStateForegroundStyle',
-      'capsLockedStateForegroundStyle',
-    ]
-  ),
-};
-
 // 递归地将所有键名 character 替换为 symbol
 local replaceCharacterToSymbolRecursive(params) =
   if std.isObject(params) then
@@ -317,10 +271,6 @@ local processButtonParams(isAlphabetic, params) =
   newBackgroundStyle: newBackgroundStyle,
   newForegroundStyle: newForegroundStyle,
   newAnimation: newAnimation,
-  newRowKeyboardLayout: newRowKeyboardLayout,
-  rimeOptionChangedForegroundStyleName: rimeOptionChangedForegroundStyleName,
-  rimeOptionChangedNotificationName: rimeOptionChangedNotificationName,
-  newRimeOptionChangedNotification: newRimeOptionChangedNotification,
   replaceCharacterToSymbolRecursive: replaceCharacterToSymbolRecursive,
   calcMainTextCenter: calcMainTextCenter,
   numericActionNeedSymbol: numericActionNeedSymbol,

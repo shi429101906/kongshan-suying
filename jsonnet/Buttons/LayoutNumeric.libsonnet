@@ -308,4 +308,83 @@ local settings = import '../Settings.libsonnet';
       action: { character: '#' },
     },
   },
+
+  // 以下符号是给“16进制”的数字键盘使用的
+  // A-F 字符
+  aHexButton: {
+    name: 'aHexButton',
+    params: {
+      action: { symbol: 'a' },
+      longPress: [
+        { action: { symbol: 'A' } },
+      ],
+    },
+  },
+
+  bHexButton: {
+    name: 'bHexButton',
+    params: {
+      action: { symbol: 'b' },
+      longPress: [
+        { action: { symbol: 'B' } },
+       ],
+    },
+  },
+
+  cHexButton: {
+    name: 'cHexButton',
+    params: {
+      action: { symbol: 'c' },
+      longPress: [
+        { action: { symbol: 'C' } },
+      ],
+    },
+  },
+
+  dHexButton: {
+    name: 'dHexButton',
+    params: {
+      action: { symbol: 'd' },
+      longPress: [
+        { action: { symbol: 'D' } },
+      ],
+    },
+  },
+
+  eHexButton: {
+    name: 'eHexButton',
+    params: {
+      action: { symbol: 'e' },
+      longPress: [
+        { action: { symbol: 'E' } },
+      ],
+    },
+  },
+
+  fHexButton: {
+    name: 'fHexButton',
+    params: {
+      action: { symbol: 'f' },
+      longPress: [
+        { action: { symbol: 'F' } },
+      ],
+    },
+  },
+
+  backSlashHexButton: {
+    name: 'backSlashHexButton',
+    params: {
+      action: { symbol: '\\' },
+    },
+  },
+
+  xHexButton: {
+    name: 'xHexButton',
+    params: {
+      action: { symbol: 'x' },
+      longPress: [
+        { action: { symbol: 'X' } },
+       ],
+    },
+  },
 }

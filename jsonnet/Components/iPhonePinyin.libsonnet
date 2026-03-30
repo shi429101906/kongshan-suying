@@ -5,6 +5,7 @@ local layout17 = import 'iPhonePinyin17.libsonnet';
 local layout18 = import 'iPhonePinyin18.libsonnet';
 local layout26 = import 'iPhonePinyin26.libsonnet';
 local layoutBopomofo = import 'iPhoneBopomofo.libsonnet';
+local layoutSigma = import 'iPhonePinyinSigma.libsonnet';
 
 {
   new(isDark, isPortrait):
@@ -18,6 +19,8 @@ local layoutBopomofo = import 'iPhoneBopomofo.libsonnet';
       layout18.new(isDark, isPortrait)
     else if settings.keyboardLayout == 'bopomofo' then
       layoutBopomofo.new(isDark, isPortrait)
+    else if settings.keyboardLayout == 'sigma' then
+      layoutSigma.new(isDark, isPortrait)
     else
       layout26.new(isDark, isPortrait),
 }

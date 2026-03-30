@@ -1,4 +1,4 @@
-local buttons = import '../Buttons/LayoutBopomofo.libsonnet';
+local buttons = import '../Buttons/LayoutSigma.libsonnet';
 local commonButtons = import '../Buttons/Common.libsonnet';
 local toolbarParams = import '../Buttons/Toolbar.libsonnet';
 local settings = import '../Settings.libsonnet';
@@ -7,86 +7,100 @@ local preedit = import 'Preedit.libsonnet';
 local toolbar = import 'Toolbar.libsonnet';
 local utils = import 'Utils.libsonnet';
 
-local portraitNormalButtonSize = {
-  size: { width: '3/33' },
+local firstRowStyle = {
+  local this = self,
+  name: 'firstRowStyle',
+  style: {
+    [this.name]: {
+      size: {
+        height: { percentage: 0.25 },
+      },
+    },
+  },
+};
+
+local secondRowStyle = {
+  local this = self,
+  name: 'secondRowStyle',
+  style: {
+    [this.name]: {
+      size: {
+        height: { percentage: 0.27 },
+      },
+    },
+  },
+};
+
+local thirdRowStyle = {
+  local this = self,
+  name: 'thirdRowStyle',
+  style: {
+    [this.name]: {
+      size: {
+        height: { percentage: 0.25 },
+      },
+    },
+  },
+};
+
+local fourthRowStyle = {
+  local this = self,
+  name: 'fourthRowStyle',
+  style: {
+    [this.name]: {
+      size: {
+        height: { percentage: 0.23 },
+      },
+    },
+  },
 };
 
 local keyboardLayout = {
   keyboardLayout: [
     {
       HStack: {
-        subviews: [
-          { Cell: buttons.bpmfOneButton.name },
-          { Cell: buttons.bpmfTwoButton.name },
-          { Cell: buttons.bpmfThreeButton.name },
-          { Cell: buttons.bpmfFourButton.name },
-          { Cell: buttons.bpmfFiveButton.name },
-          { Cell: buttons.bpmfSixButton.name },
-          { Cell: buttons.bpmfSevenButton.name },
-          { Cell: buttons.bpmfEightButton.name },
-          { Cell: buttons.bpmfNineButton.name },
-          { Cell: buttons.bpmfZeroButton.name },
-          { Cell: buttons.bpmfDashButton.name },
-        ],
-      },
-    },
-    {
-      HStack: {
+        style: firstRowStyle.name,
         subviews: [
           { Cell: buttons.qButton.name },
-          { Cell: buttons.wButton.name },
-          { Cell: buttons.eButton.name },
-          { Cell: buttons.rButton.name },
           { Cell: buttons.tButton.name },
-          { Cell: buttons.yButton.name },
-          { Cell: buttons.uButton.name },
-          { Cell: buttons.iButton.name },
-          { Cell: buttons.oButton.name },
-          { Cell: buttons.pButton.name },
+          { Cell: buttons.lButton.name },
+          { Cell: buttons.nButton.name },
+          { Cell: buttons.cButton.name },
         ],
       },
     },
     {
       HStack: {
+        style: secondRowStyle.name,
         subviews: [
+          { Cell: buttons.jButton.name },
+          { Cell: buttons.eButton.name },
+          { Cell: buttons.oButton.name },
+          { Cell: buttons.yButton.name },
+          { Cell: buttons.zButton.name },
+        ],
+      },
+    },
+    {
+      HStack: {
+        style: thirdRowStyle.name,
+        subviews: [
+          { Cell: buttons.xButton.name },
+          { Cell: buttons.wButton.name },
           { Cell: buttons.aButton.name },
           { Cell: buttons.sButton.name },
-          { Cell: buttons.dButton.name },
-          { Cell: buttons.fButton.name },
-          { Cell: buttons.gButton.name },
-          { Cell: buttons.hButton.name },
-          { Cell: buttons.jButton.name },
-          { Cell: buttons.kButton.name },
-          { Cell: buttons.lButton.name },
-          { Cell: buttons.bpmfSemicolonButton.name },
         ],
       },
     },
     {
       HStack: {
+        style: fourthRowStyle.name,
         subviews: [
-          { Cell: buttons.zButton.name },
-          { Cell: buttons.xButton.name },
-          { Cell: buttons.cButton.name },
-          { Cell: buttons.vButton.name },
-          { Cell: buttons.bButton.name },
-          { Cell: buttons.nButton.name },
-          { Cell: buttons.mButton.name },
-          { Cell: buttons.bpmfCommaButton.name },
-          { Cell: buttons.bpmfPeriodButton.name },
-          { Cell: buttons.bpmfSlashButton.name },
-          { Cell: commonButtons.backspaceButton.name },
-        ],
-      },
-    },
-    {
-      HStack: {
-        subviews: [
-          { Cell: commonButtons.numericButton.name },
-          { Cell: buttons.commaButton.name },
-          { Cell: buttons.spaceButton.name },
+          { Cell: commonButtons.enterButton.name },
+          { Cell: commonButtons.commaButton.name },
+          { Cell: commonButtons.spaceButton.name },
           { Cell: commonButtons.alphabeticButton.name },
-          { Cell: buttons.enterButton.name },
+          { Cell: commonButtons.backspaceButton.name },
         ],
       },
     },
@@ -95,36 +109,28 @@ local keyboardLayout = {
 
 local getAlphabeticButtonSize(name) =
   local extra = {
-    [buttons.qButton.name]: {
-      size:
-        { width: '4/33' },
-      bounds:
-        { width: '3/4', alignment: 'right' },
-    },
-    [buttons.pButton.name]: {
-      size:
-        { width: '5/33' },
-      bounds:
-        { width: '3/5', alignment: 'left' },
-    },
-    [buttons.aButton.name]: {
-      size:
-        { width: '5/33' },
-      bounds:
-        { width: '3/5', alignment: 'right' },
-    },
-    [buttons.bpmfSemicolonButton.name]: {
-      size:
-        { width: '4/33' },
-      bounds:
-        { width: '4/5', alignment: 'left' },
-    },
+    [buttons.qButton.name]: { size: { width: { percentage: 0.18 } } },
+    [buttons.tButton.name]: { size: { width: { percentage: 0.23 } } },
+    [buttons.lButton.name]: { size: { width: { percentage: 0.18 } } },
+    [buttons.nButton.name]: { size: { width: { percentage: 0.23 } } },
+    [buttons.cButton.name]: { size: { width: { percentage: 0.18 } } },
+
+    [buttons.jButton.name]: { size: { width: { percentage: 0.16 } } },
+    [buttons.eButton.name]: { size: { width: { percentage: 0.20 } } },
+    [buttons.oButton.name]: { size: { width: { percentage: 0.28 } } },
+    [buttons.yButton.name]: { size: { width: { percentage: 0.20 } } },
+    [buttons.zButton.name]: { size: { width: { percentage: 0.16 } } },
+
+    [buttons.xButton.name]: { size: { width: { percentage: 0.22 } } },
+    [buttons.wButton.name]: { size: { width: { percentage: 0.28 } } },
+    [buttons.aButton.name]: { size: { width: { percentage: 0.28 } } },
+    [buttons.sButton.name]: { size: { width: { percentage: 0.22 } } },
   };
   (
   if std.objectHas(extra, name) then
     extra[name]
   else
-    portraitNormalButtonSize
+    {}
   );
 
 local newKeyLayout(isDark=false, isPortrait=true) =
@@ -144,25 +150,17 @@ local newKeyLayout(isDark=false, isPortrait=true) =
       buttons.letterButtons,
       {})
 
-  + basicStyle.newSystemButton(
-    commonButtons.backspaceButton.name,
-    isDark,
-    portraitNormalButtonSize
-    + commonButtons.backspaceButton.params,
-  )
-
-  // Last Row
-  + basicStyle.newSystemButton(
-    commonButtons.numericButton.name,
+  + basicStyle.newColorButton(
+    commonButtons.enterButton.name,
     isDark,
     { size: { width: { percentage: 0.2 } } }
-    + commonButtons.numericButton.params
+    + commonButtons.enterButton.params
   )
 
   + basicStyle.newAlphabeticButton(
     buttons.commaButton.name,
     isDark,
-    { size: { width: { percentage: 0.1 } } }
+    { size: { width: { percentage: 0.12 } } }
     + buttons.commaButton.params + basicStyle.hintStyleSize,
     swipeTextFollowSetting=false,
   )
@@ -172,25 +170,25 @@ local newKeyLayout(isDark=false, isPortrait=true) =
     basicStyle.newSpaceButtonForegroundStyle(buttons.spaceButton.params, '$rimeSchemaName', isDark),
     needHint=false,
   )
-  +
-  basicStyle.newSystemButton(
+  + basicStyle.newSystemButton(
     commonButtons.alphabeticButton.name,
     isDark,
-    { size: { width: { percentage: 0.1 } } }
+    { size: { width: { percentage: 0.12 } } }
     + commonButtons.alphabeticButton.params
   )
-  + basicStyle.newColorButton(
-    buttons.enterButton.name,
+
+  + basicStyle.newSystemButton(
+    commonButtons.backspaceButton.name,
     isDark,
     { size: { width: { percentage: 0.22 } } }
-    + buttons.enterButton.params
+    + commonButtons.backspaceButton.params,
   )
 ;
 
 local backgroundInsets = if !settings.iPad then
 {
-  portrait: { top: 3, left: 2, bottom: 3, right: 2 },
-  landscape: { top: 2, left: 2, bottom: 2, right: 2 },
+  portrait: { top: 3, left: 4, bottom: 3, right: 4 },
+  landscape: { top: 2, left: 3, bottom: 2, right: 3 },
 }
 else
 {
@@ -208,6 +206,10 @@ else
 
     preedit.new(isDark)
     + toolbar.new(isDark, isPortrait)
+    + firstRowStyle.style
+    + secondRowStyle.style
+    + thirdRowStyle.style
+    + fourthRowStyle.style
     + basicStyle.newKeyboardBackgroundStyle(isDark)
     + basicStyle.newAlphabeticButtonBackgroundStyle(isDark, extraParams)
     + basicStyle.newSystemButtonBackgroundStyle(isDark, extraParams)

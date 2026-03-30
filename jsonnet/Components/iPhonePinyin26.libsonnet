@@ -38,51 +38,81 @@ local funcRow = [
   commonButtons.funcRightButton,
 ];
 
-// 标准26键布局
-local getRows(keyboardType) = [
-  funcRow,
-  [
-    buttons.qButton,
-    buttons.wButton,
-    buttons.eButton,
-    buttons.rButton,
-    buttons.tButton,
-    buttons.yButton,
-    buttons.uButton,
-    buttons.iButton,
-    buttons.oButton,
-    buttons.pButton,
+local keyboardLayout(keyboardType) = {
+  keyboardLayout: [
+    {
+      HStack: {
+        subviews: [
+          { Cell: commonButtons.funcLeftButton.name },
+          { Cell: commonButtons.funcHeadButton.name },
+          { Cell: commonButtons.funcSelectButton.name },
+          { Cell: commonButtons.funcCutButton.name },
+          { Cell: commonButtons.funcCopyButton.name },
+          { Cell: commonButtons.funcPasteButton.name },
+          { Cell: commonButtons.funcTailButton.name },
+          { Cell: commonButtons.funcRightButton.name },
+        ],
+      },
+    },
+    {
+      HStack: {
+        subviews: [
+          { Cell: buttons.qButton.name },
+          { Cell: buttons.wButton.name },
+          { Cell: buttons.eButton.name },
+          { Cell: buttons.rButton.name },
+          { Cell: buttons.tButton.name },
+          { Cell: buttons.yButton.name },
+          { Cell: buttons.uButton.name },
+          { Cell: buttons.iButton.name },
+          { Cell: buttons.oButton.name },
+          { Cell: buttons.pButton.name },
+        ],
+      },
+    },
+    {
+      HStack: {
+        subviews: [
+          { Cell: buttons.aButton.name },
+          { Cell: buttons.sButton.name },
+          { Cell: buttons.dButton.name },
+          { Cell: buttons.fButton.name },
+          { Cell: buttons.gButton.name },
+          { Cell: buttons.hButton.name },
+          { Cell: buttons.jButton.name },
+          { Cell: buttons.kButton.name },
+          { Cell: buttons.lButton.name },
+        ],
+      },
+    },
+    {
+      HStack: {
+        subviews: [
+          { Cell: commonButtons.shiftButton.name },
+          { Cell: buttons.zButton.name },
+          { Cell: buttons.xButton.name },
+          { Cell: buttons.cButton.name },
+          { Cell: buttons.vButton.name },
+          { Cell: buttons.bButton.name },
+          { Cell: buttons.nButton.name },
+          { Cell: buttons.mButton.name },
+          { Cell: commonButtons.backspaceButton.name },
+        ],
+      },
+    },
+    {
+      HStack: {
+        subviews: [
+          { Cell: commonButtons.numericButton.name },
+          { Cell: commonButtons.commaButton.name },
+          { Cell: commonButtons.spaceButton.name },
+          { Cell: getSwitchButton(keyboardType).name },
+          { Cell: commonButtons.enterButton.name },
+        ],
+      },
+    },
   ],
-  [
-    buttons.aButton,
-    buttons.sButton,
-    buttons.dButton,
-    buttons.fButton,
-    buttons.gButton,
-    buttons.hButton,
-    buttons.jButton,
-    buttons.kButton,
-    buttons.lButton,
-  ],
-  [
-    commonButtons.shiftButton,
-    buttons.zButton,
-    buttons.xButton,
-    buttons.cButton,
-    buttons.vButton,
-    buttons.bButton,
-    buttons.nButton,
-    buttons.mButton,
-    commonButtons.backspaceButton,
-  ],
-  [
-    commonButtons.numericButton,
-    commonButtons.commaButton,
-    commonButtons.spaceButton,
-    getSwitchButton(keyboardType),
-    commonButtons.enterButton,
-  ],
-];
+};
 
 local getAlphabeticButtonSize(name) =
   local extra = {
@@ -107,13 +137,12 @@ local getAlphabeticButtonSize(name) =
   );
 
 local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chinese) =
-  local rows = getRows(keyboardType);
   local isAlphabetic = keyboardType == KeyboardType.English;
   {
     keyboardHeight: if isPortrait then commonButtons.keyboardHeight.portrait + 54 else commonButtons.keyboardHeight.landscape + 40,
     keyboardStyle: utils.newBackgroundStyle(style=basicStyle.keyboardBackgroundStyleName),
   }
-  + utils.newRowKeyboardLayout(rows)
+  + keyboardLayout(keyboardType)
 
   // Function Row Buttons
   + std.foldl(function(acc, button)
