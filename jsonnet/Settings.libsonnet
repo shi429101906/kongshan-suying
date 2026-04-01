@@ -115,18 +115,19 @@
 
     uppercased: { systemImageName: 'shift.fill', },
     capsLocked: { systemImageName: 'capslock.fill', },
+    swipeUp: { action: 'tab', text: '' },
 
-    whenPreeditChanged: {
-      action: { character: "'" },
-      systemImageName: 'square.and.line.vertical.and.square',
-      text: '分词',
+    #whenPreeditChanged: {
+    #  action: { character: "'" },
+    #  systemImageName: 'square.and.line.vertical.and.square',
+    #  text: '分词',
 
-      swipeUp: { action: { character: '/' }, text: '' },
+    #  swipeUp: { action: { character: '/' }, text: '' },
 
       # action: 'tab',
       # systemImageName: 'arrow.right.to.line',
       # text: 'Tab',
-    },
+    #},
   },
 
 
