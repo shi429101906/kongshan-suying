@@ -261,11 +261,6 @@ local settings = import '../Settings.libsonnet';
       action: { character: 'z' },
       uppercased: { action: { character: 'Z' } },
       swipeUp: { action: { character: '/' } },
-      swipeDown: {
-        action: { shortcut: '#undo' },
-        text: '撤',
-        systemImageName: 'arrow.uturn.left'
-      },
       longPress: [
         { action: { character: 'Z' } },
       ],
