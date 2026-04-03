@@ -183,9 +183,9 @@ local settings = import '../Settings.libsonnet';
       swipeUp: { action: { character: ';' } },
       swipeDown: { action: { character: ':' } },
       longPress: [
-        { action: { shortcut: '#showPhraseView' }, text: '常语' },
+        { action: { shortcut: '#showPhraseView' }, text: '短语' },
         { action: { character: 'F' }, selected: true   },
-        { action: { shortcut: '#showPasteboardView' }, text: '切板' },
+        { action: { shortcut: '#showPasteboardView' }, text: '剪切' },
       ],
     },
   },
