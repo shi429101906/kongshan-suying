@@ -94,13 +94,13 @@ local getAlphabeticButtonSize(name) =
       size:
         { width: '168.75/1125' },
       bounds:
-        { width: '111/168.75', alignment: 'right' },
+        { width: '112.5/168.75', alignment: 'right' },
     },
     [buttons.lButton.name]: {
       size:
         { width: '168.75/1125' },
       bounds:
-        { width: '111/168.75', alignment: 'left' },
+        { width: '112.5/168.75', alignment: 'left' },
     },
   };
   (
