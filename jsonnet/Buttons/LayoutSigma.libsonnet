@@ -177,9 +177,9 @@ local commonButtons = import './Common.libsonnet';
     }),
   },
 
-  spaceButton: {
-    name: 'spaceButton',
-    params: commonButtons.spaceButton.params + {
+  alphabeticButton: {
+    name: 'alphabeticButton',
+    params: std.mergePatch(commonButtons.alphabeticButton.params, {
       longPress: [
         {
           action: { keyboardType: 'symbolic', },
@@ -199,6 +199,6 @@ local commonButtons = import './Common.libsonnet';
           text: '表情',
         },
       ],
-    },
+    }),
   },
 }
