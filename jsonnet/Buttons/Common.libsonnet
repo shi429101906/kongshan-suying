@@ -201,6 +201,22 @@ local settings = import '../Settings.libsonnet';
       assetImageName: 'chineseState2',
       swipeUp: { action: { shortcut: '#方案切换' } },
 
+      longPress: [
+        { action: { sendKeys: 'Control+Shift+4' }, text: '简繁' },
+        { action: { sendKeys: 'Control+e' }, text: '翻译' },
+        { action: { sendKeys: 'Control+c' }, text: '拆分', selected: true },
+        { action: { character: 'Control+t' }, text: '提示' },
+        { action: { sendKeys: 'Control+q' }, text: '简词' },
+      ],
+
+      whenPreeditChanged: {
+        action: { sendKeys: 'F2' },
+        systemImageName: 'lightbulb.max',
+        text: 'tips',
+
+        swipeUp: { action: { sendKeys: 'F1' }, text: '' },
+      },
+
       [if !std.startsWith(settings.keyboardLayout, '26') then 'swipeDown']: {
         action: { keyboardType: 'temp26Key' },
       }
