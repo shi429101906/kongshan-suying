@@ -55,8 +55,8 @@ local settings = import '../Settings.libsonnet';
         text: settings.spaceButtonComposingText,
         fontSize: fonts.systemButtonTextFontSize,
 
-        swipeUp: { action: { shortcut: '#次选上屏' }, text: '次选' },
-        swipeDown: { action: { shortcut: '#三选上屏' }, text: '三选' },
+        // swipeUp: { action: { shortcut: '#次选上屏' }, text: '次选' },
+        // swipeDown: { action: { shortcut: '#三选上屏' }, text: '三选' },
       },
     },
   },
@@ -164,6 +164,10 @@ local settings = import '../Settings.libsonnet';
       text: if settings.preferIcon then '123' else '数字',
       swipeUp: { action: { keyboardType: 'symbolic' } },
       swipeDown: { action: { keyboardType: 'emojis' } },
+      whenPreeditChanged: {
+        text: '④',
+        action: { character: "4" },
+      },
     }
     + ( // 对于 iPad 设备，长按数字键可以切换到 iOS 系统键盘列表中的下一个键盘
       if settings.iPad then {
@@ -210,11 +214,12 @@ local settings = import '../Settings.libsonnet';
       ],
 
       whenPreeditChanged: {
-        action: { sendKeys: 'F2' },
-        systemImageName: 'lightbulb.max',
-        text: 'tips',
+        action: { shortcut: '#次选上屏' },
+        // systemImageName: 'lightbulb.max',
+        text: '②',
 
-        swipeUp: { action: { sendKeys: 'F1' }, text: '' },
+        swipeUp: { action: { sendKeys: 'F2' }, text: '' },
+        swipeDown: { action: { sendKeys: 'F1' } },
       },
 
       [if !std.startsWith(settings.keyboardLayout, '26') then 'swipeDown']: {
@@ -257,6 +262,11 @@ local settings = import '../Settings.libsonnet';
         action: { character: '.' },
         text: '。',
         center: { y: 0.3 }
+      },
+
+      whenPreeditChanged: {
+        action: { shortcut: '#三选上屏' },
+        text: '③',
       },
 
       longPress: [
