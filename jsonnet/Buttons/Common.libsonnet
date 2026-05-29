@@ -264,6 +264,11 @@ local settings = import '../Settings.libsonnet';
         center: { y: 0.3 }
       },
 
+      swipeDown: {
+        action: { character: ',' },
+        text: '',
+      },
+
       whenPreeditChanged: {
         action: { shortcut: '#三选上屏' },
         text: '③',
