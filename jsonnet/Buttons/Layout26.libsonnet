@@ -246,7 +246,7 @@ local settings = import '../Settings.libsonnet';
       action: { character: 'l' },
       uppercased: { action: { character: 'L' } },
       swipeUp: { action: { character: '"' } },
-      swipeDown: { action: { character: "" } },
+      swipeDown: { action: { character: "&" } },
       longPress: [
         { action: { shortcut: '#右手模式' }, systemImageName: 'keyboard.onehanded.right' },
         { action: { character: 'L' }, selected: true },
@@ -316,7 +316,7 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'n' },
       uppercased: { action: { character: 'N' } },
-      swipeUp: { action: { character: '&' } },
+      swipeUp: { action: { character: ';' } },
       swipeDown: { action: { character: '~' } },
       longPress: [
         { action: { character: 'N' } },

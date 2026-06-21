@@ -179,7 +179,6 @@ local settings = import '../Settings.libsonnet';
         longPress: [
           { action: { sendKeys: 'Control+h' }, text: '字集' },
           { action: { sendKeys: 'Control+o' }, text: '简繁' },
-          { action: { shortcut: '#RimeSwitcher' }, text: 'sw' },
         ],
       }
     )
@@ -197,11 +196,10 @@ local settings = import '../Settings.libsonnet';
   alphabeticButton: {
     name: 'alphabeticButton',
     params: {
-      // action: { keyboardType: 'alphabetic' },
-      // assetImageName: 'chineseState2',
-      action: { character: ";" },
-      swipeUp: { action: { keyboardType: 'alphabetic' }, text: '' },
-      swipeDown: { action: { shortcut: '#方案切换' }, text: '' },
+      action: { keyboardType: 'alphabetic' },
+      assetImageName: 'chineseState2',
+      swipeUp: { action: { shortcut: '#方案切换' } },
+      swipeDown: { action: { shortcut: '#RimeSwitcher' } },
 
       longPress: [
         { action: { sendKeys: 'Control+Shift+4' }, text: '简繁' },
@@ -212,8 +210,7 @@ local settings = import '../Settings.libsonnet';
       ],
 
       whenPreeditChanged: {
-        action: { character: ";" },
-        // action: { shortcut: '#次选上屏' },
+        action: { shortcut: '#次选上屏' },
         // systemImageName: 'lightbulb.max',
         text: '②',
 
