@@ -164,10 +164,6 @@ local settings = import '../Settings.libsonnet';
       text: if settings.preferIcon then '123' else '数字',
       swipeUp: { action: { keyboardType: 'symbolic' } },
       swipeDown: { action: { keyboardType: 'emojis' } },
-      whenPreeditChanged: {
-        text: '④',
-        action: { character: "4" },
-      },
     }
     + ( // 对于 iPad 设备，长按数字键可以切换到 iOS 系统键盘列表中的下一个键盘
       if settings.iPad then {
@@ -201,9 +197,11 @@ local settings = import '../Settings.libsonnet';
   alphabeticButton: {
     name: 'alphabeticButton',
     params: {
-      action: { keyboardType: 'alphabetic' },
-      assetImageName: 'chineseState2',
-      swipeUp: { action: { shortcut: '#方案切换' } },
+      // action: { keyboardType: 'alphabetic' },
+      // assetImageName: 'chineseState2',
+      action: { character: ";" },
+      swipeUp: { action: { keyboardType: 'alphabetic' }, text: '' },
+      swipeDown: { action: { shortcut: '#方案切换' }, text: '' },
 
       longPress: [
         { action: { sendKeys: 'Control+Shift+4' }, text: '简繁' },
@@ -214,7 +212,8 @@ local settings = import '../Settings.libsonnet';
       ],
 
       whenPreeditChanged: {
-        action: { shortcut: '#次选上屏' },
+        action: { character: ";" },
+        // action: { shortcut: '#次选上屏' },
         // systemImageName: 'lightbulb.max',
         text: '②',
 

@@ -117,9 +117,8 @@
     swipeUp: { action: 'tab', text: '' },
 
     whenPreeditChanged: {
-      action: { character: "'" },
-      systemImageName: 'square.and.line.vertical.and.square',
-      text: '分词',
+      action: { character: "4" },
+      text: '④',
 
       # swipeUp: { action: { character: '/' }, text: '' },
 

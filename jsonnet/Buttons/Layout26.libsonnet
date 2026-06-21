@@ -180,7 +180,7 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'f' },
       uppercased: { action: { character: 'F' } },
-      swipeUp: { action: { character: ';' } },
+      swipeUp: { action: { character: '*' } },
       swipeDown: { action: { character: ':' } },
       longPress: [
         { action: { shortcut: '#showPhraseView' }, text: '短语' },
@@ -246,7 +246,7 @@ local settings = import '../Settings.libsonnet';
       action: { character: 'l' },
       uppercased: { action: { character: 'L' } },
       swipeUp: { action: { character: '"' } },
-      swipeDown: { action: { character: "'" } },
+      swipeDown: { action: { character: "" } },
       longPress: [
         { action: { shortcut: '#右手模式' }, systemImageName: 'keyboard.onehanded.right' },
         { action: { character: 'L' }, selected: true },
@@ -282,7 +282,7 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'c' },
       uppercased: { action: { character: 'C' } },
-      swipeUp: { action: { character: '*' } },
+      swipeUp: { action: { character: "'" } },
       longPress: [
         { action: { character: 'C' } },
       ],
