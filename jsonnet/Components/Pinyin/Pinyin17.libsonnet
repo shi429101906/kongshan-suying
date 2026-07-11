@@ -1,44 +1,47 @@
-local buttons = import '../Buttons/Layout14.libsonnet';
-local commonButtons = import '../Buttons/Common.libsonnet';
-local toolbarParams = import '../Buttons/Toolbar.libsonnet';
-local settings = import '../Settings.libsonnet';
-local basicStyle = import 'BasicStyle.libsonnet';
-local preedit = import 'Preedit.libsonnet';
-local toolbar = import 'Toolbar.libsonnet';
-local utils = import 'Utils.libsonnet';
+local buttons = import '../../Buttons/Layout17.libsonnet';
+local commonButtons = import '../../Buttons/Common.libsonnet';
+local toolbarParams = import '../../Buttons/Toolbar.libsonnet';
+local settings = import '../../Settings.libsonnet';
+local basicStyle = import '../../Styles/BasicStyle.libsonnet';
+local preedit = import '../Preedit.libsonnet';
+local toolbar = import '../Toolbar.libsonnet';
+local utils = import '../../Utils/Utils.libsonnet';
 
+// 乱序17键布局
 local keyboardLayout = {
   keyboardLayout: [
     {
       HStack: {
         subviews: [
-          { Cell: buttons.qButton.name },
-          { Cell: buttons.eButton.name },
-          { Cell: buttons.tButton.name },
-          { Cell: buttons.uButton.name },
-          { Cell: buttons.oButton.name },
-        ],
-      },
-    },
-    {
-      HStack: {
-        subviews: [
-          { Cell: buttons.aButton.name },
-          { Cell: buttons.dButton.name },
-          { Cell: buttons.gButton.name },
-          { Cell: buttons.jButton.name },
-          { Cell: buttons.lButton.name },
-        ],
-      },
-    },
-    {
-      HStack: {
-        subviews: [
-          { Cell: commonButtons.shiftButton.name },
+          { Cell: buttons.hButton.name },
+          { Cell: buttons.sButton.name },
           { Cell: buttons.zButton.name },
-          { Cell: buttons.cButton.name },
           { Cell: buttons.bButton.name },
+          { Cell: buttons.xButton.name },
           { Cell: buttons.mButton.name },
+        ],
+      },
+    },
+    {
+      HStack: {
+        subviews: [
+          { Cell: buttons.lButton.name },
+          { Cell: buttons.dButton.name },
+          { Cell: buttons.yButton.name },
+          { Cell: buttons.wButton.name },
+          { Cell: buttons.jButton.name },
+          { Cell: buttons.nButton.name },
+        ],
+      },
+    },
+    {
+      HStack: {
+        subviews: [
+          { Cell: buttons.cButton.name },
+          { Cell: buttons.qButton.name },
+          { Cell: buttons.gButton.name },
+          { Cell: buttons.fButton.name },
+          { Cell: buttons.tButton.name },
           { Cell: commonButtons.backspaceButton.name },
         ],
       },
@@ -70,30 +73,15 @@ local newKeyLayout(isDark=false, isPortrait=true) =
       basicStyle.newAlphabeticButton(
         button.name,
         isDark,
-        basicStyle.hintStyleSize + basicStyle.textCenterWhenShowSwipeText + button.params +
-        {
-          [if settings.uppercaseForChinese then 'text']: std.asciiUpper(button.params.text)
-        }),
+        button.params + basicStyle.hintStyleSize + basicStyle.textCenterWhenShowSwipeText),
       buttons.letterButtons,
       {})
 
   // Third Row
   + basicStyle.newSystemButton(
-    commonButtons.shiftButton.name,
-    isDark,
-    {
-      size: { width: '168.75/1125' },
-    }
-    + commonButtons.shiftButton.params
-  )
-
-  + basicStyle.newSystemButton(
     commonButtons.backspaceButton.name,
     isDark,
-    {
-      size: { width: '168.75/1125' },
-    }
-    + commonButtons.backspaceButton.params,
+    commonButtons.backspaceButton.params,
   )
 
   // Fourth Row
@@ -140,7 +128,7 @@ local newKeyLayout(isDark=false, isPortrait=true) =
     };
 
     preedit.new(isDark)
-    + toolbar.new(isDark, isPortrait)
+    + toolbar.new(isDark, isPortrait, 'pinyin')
     + basicStyle.newKeyboardBackgroundStyle(isDark)
     + basicStyle.newAlphabeticButtonBackgroundStyle(isDark, extraParams)
     + basicStyle.newSystemButtonBackgroundStyle(isDark, extraParams)
@@ -152,5 +140,4 @@ local newKeyLayout(isDark=false, isPortrait=true) =
     + newKeyLayout(isDark, isPortrait)
     // Notifications
     + basicStyle.rimeSchemaChangedNotification
-    + basicStyle.returnKeyTypeChangedNotification,
 }

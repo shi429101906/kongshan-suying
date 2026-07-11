@@ -1,47 +1,48 @@
-local buttons = import '../Buttons/Layout17.libsonnet';
-local commonButtons = import '../Buttons/Common.libsonnet';
-local toolbarParams = import '../Buttons/Toolbar.libsonnet';
-local settings = import '../Settings.libsonnet';
-local basicStyle = import 'BasicStyle.libsonnet';
-local preedit = import 'Preedit.libsonnet';
-local toolbar = import 'Toolbar.libsonnet';
-local utils = import 'Utils.libsonnet';
+local buttons = import '../../Buttons/Layout18.libsonnet';
+local commonButtons = import '../../Buttons/Common.libsonnet';
+local toolbarParams = import '../../Buttons/Toolbar.libsonnet';
+local settings = import '../../Settings.libsonnet';
+local basicStyle = import '../../Styles/BasicStyle.libsonnet';
+local preedit = import '../Preedit.libsonnet';
+local toolbar = import '../Toolbar.libsonnet';
+local utils = import '../../Utils/Utils.libsonnet';
 
-// 乱序17键布局
 local keyboardLayout = {
   keyboardLayout: [
     {
       HStack: {
         subviews: [
-          { Cell: buttons.hButton.name },
-          { Cell: buttons.sButton.name },
-          { Cell: buttons.zButton.name },
-          { Cell: buttons.bButton.name },
-          { Cell: buttons.xButton.name },
-          { Cell: buttons.mButton.name },
-        ],
-      },
-    },
-    {
-      HStack: {
-        subviews: [
-          { Cell: buttons.lButton.name },
-          { Cell: buttons.dButton.name },
-          { Cell: buttons.yButton.name },
-          { Cell: buttons.wButton.name },
-          { Cell: buttons.jButton.name },
-          { Cell: buttons.nButton.name },
-        ],
-      },
-    },
-    {
-      HStack: {
-        subviews: [
-          { Cell: buttons.cButton.name },
           { Cell: buttons.qButton.name },
-          { Cell: buttons.gButton.name },
+          { Cell: buttons.wButton.name },
+          { Cell: buttons.rButton.name },
+          { Cell: buttons.yButton.name },
+          { Cell: buttons.uButton.name },
+          { Cell: buttons.iButton.name },
+          { Cell: buttons.pButton.name },
+        ],
+      },
+    },
+    {
+      HStack: {
+        subviews: [
+          { Cell: buttons.aButton.name },
+          { Cell: buttons.sButton.name },
           { Cell: buttons.fButton.name },
-          { Cell: buttons.tButton.name },
+          { Cell: buttons.hButton.name },
+          { Cell: buttons.jButton.name },
+          { Cell: buttons.lButton.name },
+        ],
+      },
+    },
+    {
+      HStack: {
+        subviews: [
+          { Cell: commonButtons.shiftButton.name },
+          { Cell: buttons.zButton.name },
+          { Cell: buttons.xButton.name },
+          { Cell: buttons.vButton.name },
+          { Cell: buttons.bButton.name },
+          { Cell: buttons.mButton.name },
           { Cell: commonButtons.backspaceButton.name },
         ],
       },
@@ -60,6 +61,28 @@ local keyboardLayout = {
   ],
 };
 
+local getAlphabeticButtonSize(name) =
+  local extra = {
+    [buttons.aButton.name]: {
+      size:
+        { width: '1.5/7' },
+      bounds:
+        { width: '1/1.5', alignment: 'right' },
+    },
+    [buttons.lButton.name]: {
+      size:
+        { width: '1.5/7' },
+      bounds:
+        { width: '1/1.5', alignment: 'left' },
+    },
+  };
+  (
+  if std.objectHas(extra, name) then
+    extra[name]
+  else
+    {}
+  );
+
 local newKeyLayout(isDark=false, isPortrait=true) =
   {
     keyboardHeight: if isPortrait then commonButtons.keyboardHeight.portrait else commonButtons.keyboardHeight.landscape,
@@ -73,11 +96,20 @@ local newKeyLayout(isDark=false, isPortrait=true) =
       basicStyle.newAlphabeticButton(
         button.name,
         isDark,
-        button.params + basicStyle.hintStyleSize + basicStyle.textCenterWhenShowSwipeText),
+        getAlphabeticButtonSize(button.name) + button.params + basicStyle.hintStyleSize + basicStyle.textCenterWhenShowSwipeText +
+        {
+          [if settings.uppercaseForChinese then 'text']: std.asciiUpper(button.params.text)
+        }),
       buttons.letterButtons,
       {})
 
   // Third Row
+  + basicStyle.newSystemButton(
+    commonButtons.shiftButton.name,
+    isDark,
+    commonButtons.shiftButton.params
+  )
+
   + basicStyle.newSystemButton(
     commonButtons.backspaceButton.name,
     isDark,
@@ -128,7 +160,7 @@ local newKeyLayout(isDark=false, isPortrait=true) =
     };
 
     preedit.new(isDark)
-    + toolbar.new(isDark, isPortrait)
+    + toolbar.new(isDark, isPortrait, 'pinyin')
     + basicStyle.newKeyboardBackgroundStyle(isDark)
     + basicStyle.newAlphabeticButtonBackgroundStyle(isDark, extraParams)
     + basicStyle.newSystemButtonBackgroundStyle(isDark, extraParams)
@@ -140,5 +172,4 @@ local newKeyLayout(isDark=false, isPortrait=true) =
     + newKeyLayout(isDark, isPortrait)
     // Notifications
     + basicStyle.rimeSchemaChangedNotification
-    + basicStyle.returnKeyTypeChangedNotification,
 }
