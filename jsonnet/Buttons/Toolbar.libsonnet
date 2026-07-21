@@ -396,7 +396,7 @@ local settings = import '../Settings.libsonnet';
     toolbarRepeatScreenButton: {
       name: 'toolbarRepeatScreenButton',
       params: {
-        action: { sendKeys: ']' },
+        action: { sendKeys: '[' },
         systemImageName: 'repeat',
         text: 'repeat',
       },
