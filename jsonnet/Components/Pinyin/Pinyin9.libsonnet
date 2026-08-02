@@ -121,36 +121,31 @@ local t9KeyboardLayout = {
 
 local totalKeyboardLayout(isPortrait=false) =
   if isPortrait then
-    // 根数组只能放同一种类型的节点，所以在最外层套一个 VStack（占满宽高的单列），
-    // 列内部用两个 HStack 上下堆叠：上面是功能行，下面是原来的 3 列 9 键主体
-    // （t9KeyboardLayout.keyboardLayout 本身是 3 个 VStack，被塞进 HStack.subviews 里，
-    // 这是「嵌套自由、只有同级不能混用」规则允许的写法）
+    // 不再额外套一层 VStack。根数组直接放 2 个 HStack（功能行 + 主体），
+    // 跟 26/14/17/18 键的「根数组是若干 HStack 行」完全同构，用的是已验证能正常按
+    // style 高度分数生效的路径。主体 HStack 的 subviews 里塞 3 个 VStack（9 键的
+    // 左/中/右列），这是文档里 VStack 嵌 HStack 的反方向嵌套，同样是允许的自由嵌套。
     {
       keyboardLayout: [
         {
-          VStack: {
+          HStack: {
+            style: 'funcRowStyle',
             subviews: [
-              {
-                HStack: {
-                  style: 'funcRowStyle',
-                  subviews: [
-                    { Cell: commonButtons.funcLeftButton.name },
-                    { Cell: commonButtons.funcHeadButton.name },
-                    { Cell: commonButtons.funcSelectButton.name },
-                    { Cell: commonButtons.funcCutButton.name },
-                    { Cell: commonButtons.funcCopyButton.name },
-                    { Cell: commonButtons.funcPasteButton.name },
-                    { Cell: commonButtons.funcTailButton.name },
-                    { Cell: commonButtons.funcRightButton.name },
-                  ],
-                },
-              },
-              {
-                HStack: {
-                  subviews: t9KeyboardLayout.keyboardLayout,
-                },
-              },
+              { Cell: commonButtons.funcLeftButton.name },
+              { Cell: commonButtons.funcHeadButton.name },
+              { Cell: commonButtons.funcSelectButton.name },
+              { Cell: commonButtons.funcCutButton.name },
+              { Cell: commonButtons.funcCopyButton.name },
+              { Cell: commonButtons.funcPasteButton.name },
+              { Cell: commonButtons.funcTailButton.name },
+              { Cell: commonButtons.funcRightButton.name },
             ],
+          },
+        },
+        {
+          HStack: {
+            style: 'mainBodyRowStyle',
+            subviews: t9KeyboardLayout.keyboardLayout,
           },
         },
       ],
@@ -204,16 +199,24 @@ local newKeyLayout(isDark=false, isPortrait=false, extraParams={}) =
   local totalKeyboardHeight = if isPortrait then commonButtons.keyboardHeight.portrait else commonButtons.keyboardHeight.landscape;
   local fRowHeight = if isPortrait then funcRowHeight.portrait else 0;
   {
-    // 横屏没有功能行，fRowHeight 为 0，高度不变
+    // 横屏没有功能行，fRowHeight 为 0，高度不变。
+    // 竖屏撑大总高度腾出功能行的空间，主体（九宫格）保持原有高度不被压缩——
+    // 之前试过不撑大、让功能行从固定预算里切一块出来，结果主体被压缩了，
+    // 功能行的形状问题依然没解决，纯属倒退，所以退回这个版本。
     keyboardHeight: totalKeyboardHeight + fRowHeight,
     keyboardStyle: utils.newBackgroundStyle(style=basicStyle.keyboardBackgroundStyleName),
   }
   + (
-    // 只有竖屏需要这个 style，横屏没引用它，写了也没坏处，但没必要
+    // 只有竖屏需要这两个 style，横屏没引用它们，写了也没坏处，但没必要
     if isPortrait then {
       funcRowStyle: {
         size: {
-          height: '%d/%d' % [fRowHeight, totalKeyboardHeight + fRowHeight],
+          height: { percentage: fRowHeight / (totalKeyboardHeight + fRowHeight) },
+        },
+      },
+      mainBodyRowStyle: {
+        size: {
+          height: { percentage: totalKeyboardHeight / (totalKeyboardHeight + fRowHeight) },
         },
       },
     } else {}
