@@ -19,6 +19,9 @@ local settings = import '../Settings.libsonnet';
     name: 'qButton',
     params: {
       action: { character: 'q' },
+      whenKeyboardAction: [
+        { notificationKeyboardAction: { sendKeys: 'backslash' }, text: '(q)' },
+      ],
       uppercased: { action: { character: 'Q' } },
       swipeUp: { action: { character: '1' } },
       longPress: [
@@ -30,6 +33,9 @@ local settings = import '../Settings.libsonnet';
     name: 'wButton',
     params: {
       action: { character: 'w' },
+      whenKeyboardAction: [
+        { notificationKeyboardAction: { sendKeys: 'backslash' }, text: '（w）' },
+      ],
       uppercased: { action: { character: 'W' } },
       swipeUp: { action: { character: '2' } },
       longPress: [
@@ -41,6 +47,9 @@ local settings = import '../Settings.libsonnet';
     name: 'eButton',
     params: {
       action: { character: 'e' },
+      whenKeyboardAction: [
+        { notificationKeyboardAction: { sendKeys: 'backslash' }, text: '⟮e⟯' },
+      ],
       uppercased: { action: { character: 'E' } },
       swipeUp: { action: { character: '3' } },
       longPress: [
@@ -56,6 +65,9 @@ local settings = import '../Settings.libsonnet';
     name: 'rButton',
     params: {
       action: { character: 'r' },
+      whenKeyboardAction: [
+        { notificationKeyboardAction: { sendKeys: 'backslash' }, text: '儿' },
+      ],
       uppercased: { action: { character: 'R' } },
       swipeUp: { action: { character: '4' } },
       longPress: [
@@ -67,6 +79,9 @@ local settings = import '../Settings.libsonnet';
     name: 'tButton',
     params: {
       action: { character: 't' },
+      whenKeyboardAction: [
+        { notificationKeyboardAction: { sendKeys: 'backslash' }, text: '⟨t⟩' },
+      ],
       uppercased: { action: { character: 'T' } },
       swipeUp: { action: { character: '5' } },
       longPress: [
@@ -78,6 +93,9 @@ local settings = import '../Settings.libsonnet';
     name: 'yButton',
     params: {
       action: { character: 'y' },
+      whenKeyboardAction: [
+        { notificationKeyboardAction: { sendKeys: 'backslash' }, text: '⟪y⟫' },
+      ],
       uppercased: { action: { character: 'Y' } },
       swipeUp: { action: { character: '6' } },
       longPress: [
@@ -89,6 +107,9 @@ local settings = import '../Settings.libsonnet';
     name: 'uButton',
     params: {
       action: { character: 'u' },
+      whenKeyboardAction: [
+        { notificationKeyboardAction: { sendKeys: 'backslash' }, text: '〈u〉' },
+      ],
       uppercased: { action: { character: 'U' } },
       swipeUp: { action: { character: '7' } },
       longPress: [
@@ -100,6 +121,9 @@ local settings = import '../Settings.libsonnet';
     name: 'iButton',
     params: {
       action: { character: 'i' },
+      whenKeyboardAction: [
+        { notificationKeyboardAction: { sendKeys: 'backslash' }, text: '『i』' },
+      ],
       uppercased: { action: { character: 'I' } },
       swipeUp: { action: { character: '8' } },
       swipeDown: { action: { character: '|' } },
@@ -112,6 +136,9 @@ local settings = import '../Settings.libsonnet';
     name: 'oButton',
     params: {
       action: { character: 'o' },
+      whenKeyboardAction: [
+        { notificationKeyboardAction: { sendKeys: 'backslash' }, text: '⦅o⦆' },
+      ],
       uppercased: { action: { character: 'O' } },
       swipeUp: { action: { character: '9' } },
       swipeDown: { action: { character: '<' } },
@@ -124,6 +151,9 @@ local settings = import '../Settings.libsonnet';
     name: 'pButton',
     params: {
       action: { character: 'p' },
+      whenKeyboardAction: [
+        { notificationKeyboardAction: { sendKeys: 'backslash' }, text: '⦇p⦈' },
+      ],
       uppercased: { action: { character: 'P' } },
       swipeUp: { action: { character: '0' } },
       swipeDown: { action: { character: '>' } },
@@ -138,6 +168,9 @@ local settings = import '../Settings.libsonnet';
     name: 'aButton',
     params: {
       action: { character: 'a' },
+      whenKeyboardAction: [
+        { notificationKeyboardAction: { sendKeys: 'backslash' }, text: '[a]' },
+      ],
       uppercased: { action: { character: 'A' } },
       swipeUp: { action: { character: '!' } },
       longPress: [
@@ -150,6 +183,9 @@ local settings = import '../Settings.libsonnet';
     name: 'sButton',
     params: {
       action: { character: 's' },
+      whenKeyboardAction: [
+        { notificationKeyboardAction: { sendKeys: 'backslash' }, text: '［s］' },
+      ],
       uppercased: { action: { character: 'S' } },
       swipeUp: { action: { character: '^' } },
       swipeDown: { action: { character: '%' } },
@@ -162,6 +198,9 @@ local settings = import '../Settings.libsonnet';
     name: 'dButton',
     params: {
       action: { character: 'd' },
+      whenKeyboardAction: [
+        { notificationKeyboardAction: { sendKeys: 'backslash' }, text: '〔d〕' },
+      ],
       uppercased: { action: { character: 'D' } },
       swipeUp: { action: { character: '@' } },
       swipeDown: { action: { character: '\\' } },
@@ -179,6 +218,9 @@ local settings = import '../Settings.libsonnet';
     name: 'fButton',
     params: {
       action: { character: 'f' },
+      whenKeyboardAction: [
+        { notificationKeyboardAction: { sendKeys: 'backslash' }, text: '⟦f⟧' },
+      ],
       uppercased: { action: { character: 'F' } },
       swipeUp: { action: { character: '*' } },
       swipeDown: { action: { character: '~' } },
@@ -193,6 +235,9 @@ local settings = import '../Settings.libsonnet';
     name: 'gButton',
     params: {
       action: { character: 'g' },
+      whenKeyboardAction: [
+        { notificationKeyboardAction: { sendKeys: 'backslash' }, text: '「g」' },
+      ],
       uppercased: { action: { character: 'G' } },
       swipeUp: { action: { character: '(' } },
       swipeDown: { action: { character: ')' } },
@@ -205,6 +250,9 @@ local settings = import '../Settings.libsonnet';
     name: 'hButton',
     params: {
       action: { character: 'h' },
+      whenKeyboardAction: [
+        { notificationKeyboardAction: { sendKeys: 'backslash' }, text: '#' },
+      ],
       uppercased: { action: { character: 'H' } },
       swipeUp: { action: { character: '-' } },
       swipeDown: { action: { character: '_' } },
@@ -217,6 +265,9 @@ local settings = import '../Settings.libsonnet';
     name: 'jButton',
     params: {
       action: { character: 'j' },
+      whenKeyboardAction: [
+        { notificationKeyboardAction: { sendKeys: 'backslash' }, text: '<j>' },
+      ],
       uppercased: { action: { character: 'J' } },
       swipeUp: { action: { character: '#' } },
       swipeDown: { action: { character: '+' } },
@@ -229,6 +280,9 @@ local settings = import '../Settings.libsonnet';
     name: 'kButton',
     params: {
       action: { character: 'k' },
+      whenKeyboardAction: [
+        { notificationKeyboardAction: { sendKeys: 'backslash' }, text: '《k》' },
+      ],
       uppercased: { action: { character: 'K' } },
       swipeUp: { action: { character: '{' } },
       swipeDown: { action: { character: '}' } },
@@ -244,6 +298,9 @@ local settings = import '../Settings.libsonnet';
     name: 'lButton',
     params: {
       action: { character: 'l' },
+      whenKeyboardAction: [
+        { notificationKeyboardAction: { sendKeys: 'backslash' }, text: '〈l〉' },
+      ],
       uppercased: { action: { character: 'L' } },
       swipeUp: { action: { character: '"' } },
       swipeDown: { action: { character: "&" } },
@@ -259,6 +316,9 @@ local settings = import '../Settings.libsonnet';
     name: 'zButton',
     params: {
       action: { character: 'z' },
+      whenKeyboardAction: [
+        { notificationKeyboardAction: { sendKeys: 'backslash' }, text: '{z}' },
+      ],
       uppercased: { action: { character: 'Z' } },
       swipeUp: { action: { character: '`' } },
       longPress: [
@@ -270,6 +330,9 @@ local settings = import '../Settings.libsonnet';
     name: 'xButton',
     params: {
       action: { character: 'x' },
+      whenKeyboardAction: [
+        { notificationKeyboardAction: { sendKeys: 'backslash' }, text: '｛x｝' },
+      ],
       uppercased: { action: { character: 'X' } },
       swipeUp: { action: { character: '/' } },
       longPress: [
@@ -281,6 +344,9 @@ local settings = import '../Settings.libsonnet';
     name: 'cButton',
     params: {
       action: { character: 'c' },
+      whenKeyboardAction: [
+        { notificationKeyboardAction: { sendKeys: 'backslash' }, text: '❲c❳' },
+      ],
       uppercased: { action: { character: 'C' } },
       swipeUp: { action: { character: "'" } },
       longPress: [
@@ -292,6 +358,9 @@ local settings = import '../Settings.libsonnet';
     name: 'vButton',
     params: {
       action: { character: 'v' },
+      whenKeyboardAction: [
+        { notificationKeyboardAction: { sendKeys: 'backslash' }, text: '❰v❱' },
+      ],
       uppercased: { action: { character: 'V' } },
       swipeUp: { action: { character: '=' } },
       longPress: [
@@ -303,6 +372,9 @@ local settings = import '../Settings.libsonnet';
     name: 'bButton',
     params: {
       action: { character: 'b' },
+      whenKeyboardAction: [
+        { notificationKeyboardAction: { sendKeys: 'backslash' }, text: '【b】' },
+      ],
       uppercased: { action: { character: 'B' } },
       swipeUp: { action: { character: '[' } },
       swipeDown: { action: { character: ']' } },
@@ -315,6 +387,9 @@ local settings = import '../Settings.libsonnet';
     name: 'nButton',
     params: {
       action: { character: 'n' },
+      whenKeyboardAction: [
+        { notificationKeyboardAction: { sendKeys: 'backslash' }, text: '«n»' },
+      ],
       uppercased: { action: { character: 'N' } },
       swipeUp: { action: { character: ';' } },
       swipeDown: { action: { character: ':' } },
@@ -327,6 +402,9 @@ local settings = import '../Settings.libsonnet';
     name: 'mButton',
     params: {
       action: { character: 'm' },
+      whenKeyboardAction: [
+        { notificationKeyboardAction: { sendKeys: 'backslash' }, text: '‹m›' },
+      ],
       uppercased: { action: { character: 'M' } },
       swipeUp: { action: { character: '?' } },
       swipeDown: { action: { character: '$' } },
