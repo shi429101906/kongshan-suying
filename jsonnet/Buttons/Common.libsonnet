@@ -219,7 +219,16 @@ local settings = import '../Settings.libsonnet';
       action: { keyboardType: 'alphabetic' },
       assetImageName: 'chineseState2',
       swipeUp: { action: { shortcut: '#方案切换' } },
-      swipeDown: { action: { shortcut: '#RimeSwitcher' } },
+
+      // 26 键布局下用下划切换方案（#RimeSwitcher）；非 26 键布局下下划改为临时切到 26 键（temp26Key）。
+      // 注意：这两者是同一个字段的二选一，不能同时写 swipeDown 字面量 + 条件 swipeDown，
+      // 那样在非 26 键布局下会因同名字段重复而编译报错。
+      swipeDown: (
+        if !std.startsWith(settings.keyboardLayout, '26') then
+          { action: { keyboardType: 'temp26Key' } }
+        else
+          { action: { shortcut: '#RimeSwitcher' } }
+      ),
 
       longPress: [
         { action: { sendKeys: 'Control+Shift+4' }, text: '简繁' },
@@ -237,10 +246,6 @@ local settings = import '../Settings.libsonnet';
         swipeUp: { action: { sendKeys: 'F2' }, text: '' },
         swipeDown: { action: { sendKeys: 'F1' } },
       },
-
-      [if !std.startsWith(settings.keyboardLayout, '26') then 'swipeDown']: {
-        action: { keyboardType: 'temp26Key' },
-      }
     },
   },
 
@@ -346,7 +351,7 @@ local settings = import '../Settings.libsonnet';
       whenPreeditChanged: {
         action: { shortcut: '#rimeNextPage' },
         systemImageName: 'chevron.compact.up.chevron.compact.down',
-        swipeUp: { action: { shortcut: '#rimePreviousPage' }, systemImageName: '' }, # chevron.up
+        swipeUp: { action: { shortcut: '#rimePreviousPage' }, text: '' },
       },
     },
   },

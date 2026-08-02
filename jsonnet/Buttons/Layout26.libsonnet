@@ -181,7 +181,7 @@ local settings = import '../Settings.libsonnet';
       action: { character: 'f' },
       uppercased: { action: { character: 'F' } },
       swipeUp: { action: { character: '*' } },
-      swipeDown: { action: { character: ':' } },
+      swipeDown: { action: { character: '~' } },
       longPress: [
         { action: { shortcut: '#showPhraseView' }, text: '短语' },
         { action: { character: 'F' }, selected: true   },
@@ -260,7 +260,7 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'z' },
       uppercased: { action: { character: 'Z' } },
-      swipeUp: { action: { character: '/' } },
+      swipeUp: { action: { character: '`' } },
       longPress: [
         { action: { character: 'Z' } },
       ],
@@ -271,7 +271,7 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'x' },
       uppercased: { action: { character: 'X' } },
-      swipeUp: { action: { character: '`' } },
+      swipeUp: { action: { character: '/' } },
       longPress: [
         { action: { character: 'X' } },
       ],
@@ -317,7 +317,7 @@ local settings = import '../Settings.libsonnet';
       action: { character: 'n' },
       uppercased: { action: { character: 'N' } },
       swipeUp: { action: { character: ';' } },
-      swipeDown: { action: { character: '~' } },
+      swipeDown: { action: { character: ':' } },
       longPress: [
         { action: { character: 'N' } },
       ],

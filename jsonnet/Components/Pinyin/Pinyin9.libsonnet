@@ -34,7 +34,25 @@ local halfVStackStyle = {
   },
 };
 
-// 9 键布局
+// 功能行按键（光标移动 / 编辑操作）
+local funcRow = [
+  commonButtons.funcLeftButton,
+  commonButtons.funcHeadButton,
+  commonButtons.funcSelectButton,
+  commonButtons.funcCutButton,
+  commonButtons.funcCopyButton,
+  commonButtons.funcPasteButton,
+  commonButtons.funcTailButton,
+  commonButtons.funcRightButton,
+];
+
+// 功能行高度，修改这里调整按键行的高低（仅竖屏；横屏是左右分栏结构，不加这一行）
+// 竖屏总高 = keyboardHeight.portrait + funcRowHeight.portrait
+local funcRowHeight = {
+  portrait: 45,
+};
+
+// 9 键主体：3 个并排的 VStack（左窄列 / 中间九宫格 / 右窄列）
 local t9KeyboardLayout = {
   keyboardLayout: [
     {
@@ -103,7 +121,40 @@ local t9KeyboardLayout = {
 
 local totalKeyboardLayout(isPortrait=false) =
   if isPortrait then
-    t9KeyboardLayout
+    // 根数组只能放同一种类型的节点，所以在最外层套一个 VStack（占满宽高的单列），
+    // 列内部用两个 HStack 上下堆叠：上面是功能行，下面是原来的 3 列 9 键主体
+    // （t9KeyboardLayout.keyboardLayout 本身是 3 个 VStack，被塞进 HStack.subviews 里，
+    // 这是「嵌套自由、只有同级不能混用」规则允许的写法）
+    {
+      keyboardLayout: [
+        {
+          VStack: {
+            subviews: [
+              {
+                HStack: {
+                  style: 'funcRowStyle',
+                  subviews: [
+                    { Cell: commonButtons.funcLeftButton.name },
+                    { Cell: commonButtons.funcHeadButton.name },
+                    { Cell: commonButtons.funcSelectButton.name },
+                    { Cell: commonButtons.funcCutButton.name },
+                    { Cell: commonButtons.funcCopyButton.name },
+                    { Cell: commonButtons.funcPasteButton.name },
+                    { Cell: commonButtons.funcTailButton.name },
+                    { Cell: commonButtons.funcRightButton.name },
+                  ],
+                },
+              },
+              {
+                HStack: {
+                  subviews: t9KeyboardLayout.keyboardLayout,
+                },
+              },
+            ],
+          },
+        },
+      ],
+    }
   else {
     keyboardLayout: [
       // 候选字区
@@ -150,12 +201,41 @@ local totalKeyboardLayout(isPortrait=false) =
 
 
 local newKeyLayout(isDark=false, isPortrait=false, extraParams={}) =
+  local totalKeyboardHeight = if isPortrait then commonButtons.keyboardHeight.portrait else commonButtons.keyboardHeight.landscape;
+  local fRowHeight = if isPortrait then funcRowHeight.portrait else 0;
   {
-    keyboardHeight: if isPortrait then commonButtons.keyboardHeight.portrait else commonButtons.keyboardHeight.landscape,
+    // 横屏没有功能行，fRowHeight 为 0，高度不变
+    keyboardHeight: totalKeyboardHeight + fRowHeight,
     keyboardStyle: utils.newBackgroundStyle(style=basicStyle.keyboardBackgroundStyleName),
   }
+  + (
+    // 只有竖屏需要这个 style，横屏没引用它，写了也没坏处，但没必要
+    if isPortrait then {
+      funcRowStyle: {
+        size: {
+          height: '%d/%d' % [fRowHeight, totalKeyboardHeight + fRowHeight],
+        },
+      },
+    } else {}
+  )
 
   + totalKeyboardLayout(isPortrait)
+
+  // Function Row Buttons（仅竖屏用到；横屏没有这一行，不生成对应样式，避免产生未引用样式的警告）
+  + (
+    if isPortrait then
+      std.foldl(function(acc, button)
+          acc +
+          basicStyle.newAlphabeticButton(
+            button.name,
+            isDark,
+            { fontSize: 16 } + button.params,
+            needHint=false,
+          ),
+          funcRow,
+          {})
+    else {}
+  )
 
   + {
     [pinyin9Buttons.t9SymbolsCollection.name]:

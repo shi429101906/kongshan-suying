@@ -7,9 +7,44 @@ local preedit = import '../Preedit.libsonnet';
 local toolbar = import '../Toolbar.libsonnet';
 local utils = import '../../Utils/Utils.libsonnet';
 
+// 功能行按键（光标移动 / 编辑操作）
+local funcRow = [
+  commonButtons.funcLeftButton,
+  commonButtons.funcHeadButton,
+  commonButtons.funcSelectButton,
+  commonButtons.funcCutButton,
+  commonButtons.funcCopyButton,
+  commonButtons.funcPasteButton,
+  commonButtons.funcTailButton,
+  commonButtons.funcRightButton,
+];
+
+// 功能行高度，修改这里调整按键行的高低
+// 竖屏总高 = keyboardHeight.portrait + funcRowHeight.portrait
+local funcRowHeight = {
+  portrait: 45,
+  landscape: 32,
+};
+
 // 乱序17键布局
 local keyboardLayout = {
   keyboardLayout: [
+    {
+      // 通过 style 引用 funcRowStyle，单独控制这一行的高度
+      HStack: {
+        style: 'funcRowStyle',
+        subviews: [
+          { Cell: commonButtons.funcLeftButton.name },
+          { Cell: commonButtons.funcHeadButton.name },
+          { Cell: commonButtons.funcSelectButton.name },
+          { Cell: commonButtons.funcCutButton.name },
+          { Cell: commonButtons.funcCopyButton.name },
+          { Cell: commonButtons.funcPasteButton.name },
+          { Cell: commonButtons.funcTailButton.name },
+          { Cell: commonButtons.funcRightButton.name },
+        ],
+      },
+    },
     {
       HStack: {
         subviews: [
@@ -61,11 +96,32 @@ local keyboardLayout = {
 };
 
 local newKeyLayout(isDark=false, isPortrait=true) =
+  local totalKeyboardHeight = if isPortrait then commonButtons.keyboardHeight.portrait else commonButtons.keyboardHeight.landscape;
+  local fRowHeight = if isPortrait then funcRowHeight.portrait else funcRowHeight.landscape;
   {
-    keyboardHeight: if isPortrait then commonButtons.keyboardHeight.portrait else commonButtons.keyboardHeight.landscape,
+    keyboardHeight: totalKeyboardHeight + fRowHeight,
     keyboardStyle: utils.newBackgroundStyle(style=basicStyle.keyboardBackgroundStyleName),
+
+    // HStack style：用分数字符串表示功能行占总高度的比例
+    funcRowStyle: {
+      size: {
+        height: '%d/%d' % [fRowHeight, totalKeyboardHeight + fRowHeight],
+      },
+    },
   }
   + keyboardLayout
+
+  // Function Row Buttons
+  + std.foldl(function(acc, button)
+      acc +
+      basicStyle.newAlphabeticButton(
+        button.name,
+        isDark,
+        { fontSize: 16 } + button.params,
+        needHint=false,
+      ),
+      funcRow,
+      {})
 
   // letter Buttons
   + std.foldl(function(acc, button)
