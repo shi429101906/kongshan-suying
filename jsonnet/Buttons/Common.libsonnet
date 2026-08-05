@@ -233,11 +233,13 @@ local settings = import '../Settings.libsonnet';
       longPress: [
         { action: { sendKeys: 'Control+Shift+4' }, text: '简繁' },
         { action: { sendKeys: 'Control+e' }, text: '翻译' },
+        { action: { sendKeys: 'Control+t' }, text: '提示' },
         { action: { sendKeys: 'Control+c' }, text: '拆分' },
         { action: { sendKeys: 'Control+a' }, text: '辅码', selected: true },
         { action: { sendKeys: 'Control+s' }, text: '编码' },
         { action: { sendKeys: 'Control+q' }, text: '简词' },
-        { action: { sendKeys: 'Control+t' }, text: '提示' },
+        { action: { sendKeys: 'Control+Return' }, text: '音出' },
+        { action: { sendKeys: 'Control+Shift+Return' }, text: '拆出' },
       ],
 
       whenPreeditChanged: {
